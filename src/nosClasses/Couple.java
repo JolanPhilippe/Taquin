@@ -1,5 +1,7 @@
 package nosClasses;
 
+dhgfhgfngfhgfgfgfhgfhfhgfhfgfhgfhgfhgf
+b
 /** Permet le regroupement de deux valeurs 
  * (principalement pour les indices doubles dans un tableau)
  * 
