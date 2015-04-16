@@ -1,4 +1,4 @@
-package lesGraphes; // test du commit
+package lesGraphes; // test du commit v2
 import java.util.ArrayList;
 
 public abstract class  BinaryHeap<E> implements Heap<E> {
