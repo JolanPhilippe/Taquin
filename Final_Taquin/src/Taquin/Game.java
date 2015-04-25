@@ -112,7 +112,7 @@ public class Game {
 			aTraiter.remove(0);
 		}while (test);
 		System.out.println("GRAPHE\n"+graphe);
-		lesGraphes.Couple<TreeMap<GrilleTaquin, GrilleTaquin>, TreeMap<GrilleTaquin, Integer>> c = graphe.parcoursLarg(gt);
+		
 		/*TreeMap<GrilleTaquin, GrilleTaquin> lesPeres = c.getFst();
 		GrilleTaquin pere = lesPeres.get(gt);
 		LinkedList<GrilleTaquin> chemin = new LinkedList<GrilleTaquin>();

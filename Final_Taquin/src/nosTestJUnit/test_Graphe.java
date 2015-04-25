@@ -54,8 +54,7 @@ public class test_Graphe {
 		
 		System.out.println("PARCOURS LARGEUR\n"+graphe);
 		graphe.parcoursLarg('s');
-		Couple<TreeMap<Character, Character>, TreeMap<Character, Integer>> c = graphe.parcoursLarg('s');
-		TreeMap<Character, Character> lesPeres = c.getFst();
+		TreeMap<Character, Character> lesPeres = graphe.getPeres();
 		System.out.println(lesPeres);
 	}
 	

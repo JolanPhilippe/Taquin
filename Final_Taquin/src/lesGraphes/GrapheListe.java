@@ -51,7 +51,7 @@ public class GrapheListe<E> extends Graphe<E> {
 	 * @param s le sommet source
 	 * @return un couple de Map: (fst -> Map<> pere) (snd -> Map<> dist)
 	 */
-	public Couple<TreeMap<E,E>,TreeMap<E,Integer>> parcoursLarg(E s) {
+	public TreeMap<E,Integer> parcoursLarg(E s) {
 		TreeMap<E,E> pere = new TreeMap<E,E>();					//pere: tab[1..n] de sommets
 		TreeMap<E,String> etat = new TreeMap <E,String>();		//etat: tab[1..n] de string {"nonAtteint";"atteint";"traite"}
 		TreeMap<E,Integer> dist = new TreeMap<E,Integer>();		//dist: tab[1..n] d'entier
@@ -78,7 +78,7 @@ public class GrapheListe<E> extends Graphe<E> {
 				etat.put(u,"traite");
 			}
 		}
-		return new Couple<TreeMap<E,E>,TreeMap<E,Integer>>(pere,dist);
+		return dist;
 	}
 
 	/** Parcours en profondeur le graphe a partir d'un sommet source
