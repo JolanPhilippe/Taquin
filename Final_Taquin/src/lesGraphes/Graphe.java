@@ -3,7 +3,7 @@ package lesGraphes;
 import java.util.TreeMap;
 
 public abstract class Graphe<E> implements IGraphe<E>{
-	private TreeMap<E,E> peres;					
+	protected TreeMap<E,E> peres;					
 	protected TreeMap<E,String> etats; 
 
 	public Graphe(){

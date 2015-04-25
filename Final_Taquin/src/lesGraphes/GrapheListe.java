@@ -51,31 +51,27 @@ public class GrapheListe<E> extends Graphe<E> {
 	 * @param s le sommet source
 	 * @return un couple de Map: (fst -> Map<> pere) (snd -> Map<> dist)
 	 */
-	public TreeMap<E,Integer> parcoursLarg(E s) {
-		TreeMap<E,E> pere = new TreeMap<E,E>();					//pere: tab[1..n] de sommets
-		TreeMap<E,String> etat = new TreeMap <E,String>();		//etat: tab[1..n] de string {"nonAtteint";"atteint";"traite"}
-		TreeMap<E,Integer> dist = new TreeMap<E,Integer>();		//dist: tab[1..n] d'entier
-		/*debut init*/
-		for (E x : graphe.keySet()){ 
-			pere.put(x, null);
-			etat.put(x, "nonAtteint");
+	public TreeMap<E,Integer> parcoursLarg(E s) {				
+		TreeMap<E,Integer> dist = new TreeMap<E,Integer>();	//dist: tab[1..n] d'entier, distance des sommets du sommet source
+		for (E x : graphe.keySet()){ /*debut init*/
+			peres.put(x, null);
+			etats.put(x, "nonAtteint");
 			dist.put(x, Integer.MAX_VALUE); //MAX_VALUE nous sert d'infini
 		}
-		etat.put(s, "atteint");
-		dist.put(s, 0);
-		/*fini init*/
+		etats.put(s, "atteint");
+		dist.put(s, 0); /*fini init*/
 		LinkedList<E> fifo = new LinkedList<E>(); //fifo : liste des sommets atteint mais non traités
 		fifo.add(s); //empiler(s)
 		while (!fifo.isEmpty()){
 			E u = fifo.poll(); //extraire()
 			for (E v : graphe.get(u)){
-				if (etat.get(v).equals("nonAtteint")){
-					pere.put(v,u);
+				if (etats.get(v).equals("nonAtteint")){
+					peres.put(v,u);
 					dist.put(v, dist.get(u)+1); 
-					etat.put(v, "atteint");
+					etats.put(v, "atteint");
 					fifo.add(v);
 				}
-				etat.put(u,"traite");
+				etats.put(u,"traite");
 			}
 		}
 		return dist;
@@ -86,25 +82,24 @@ public class GrapheListe<E> extends Graphe<E> {
 	 * @param s le sommet source
 	 * @return un triplet de Map: (fst -> Map<> pere) (snd -> Map<> deb) (thd -> Map<> fin)
 	 */
-	public Triplet<TreeMap<E,E>,TreeMap<E,Integer>,TreeMap<E,Integer>> parcoursProf() {
-		TreeMap<E,E> pere = new TreeMap<E,E>();					//pere: tab[1..n] de sommets
-		TreeMap<E,String> etat = new TreeMap <E,String>();		//etat: tab[1..n] de string {"nonAtteint";"atteint";"traite"}
+	public Couple<TreeMap<E,Integer>,TreeMap<E,Integer>> parcoursProf() {
 		TreeMap<E,Integer> deb = new TreeMap<E,Integer>();		//deb:  tab[1..n] du temps avant d'atteindre le sommet
 		TreeMap<E,Integer> fin = new TreeMap<E,Integer>();		//fin:  tab[1..n] du temps avant le traitement du sommet
 		int temps = 0;
 		/*debut init*/
 		for (E x : graphe.keySet()){ 
-			pere.put(x, null);
-			etat.put(x, "nonAtteint");
+			peres.put(x, null);
+			etats.put(x, "nonAtteint");
 			deb.put(x, Integer.MAX_VALUE); //MAX_VALUE nous sert d'infini
 			fin.put(x, Integer.MAX_VALUE); //MAX_VALUE nous sert d'infini
 		}
 		/*fini init*/
+		
 		for (E s : graphe.keySet()){
-			if (etat.get(s).equals("nonAtteint"))
-				temps = Visiter(s, etat, temps, deb, fin, pere);
+			if (etats.get(s).equals("nonAtteint"))
+				temps = Visiter(s, temps, deb, fin);
 		}
-		return new Triplet<TreeMap<E,E>,TreeMap<E,Integer>,TreeMap<E,Integer>>(pere,deb,fin);
+		return new Couple<TreeMap<E,Integer>,TreeMap<E,Integer>>(deb,fin);
 	}
 	
 	/** Methode recursive auxiliaire au parcours en profondeur
@@ -117,19 +112,19 @@ public class GrapheListe<E> extends Graphe<E> {
 	 * @param pere la map des peres 
 	 * @return le temps actuel a la fin du sous-programme Visiter
 	 */
-	public int Visiter(E u, TreeMap<E,String>etat, int temps, TreeMap<E, Integer> deb, TreeMap<E, Integer> fin, TreeMap<E,E> pere){
-		etat.put(u, "atteint");
+	public int Visiter(E u, int temps, TreeMap<E, Integer> deb, TreeMap<E, Integer> fin){
+		etats.put(u, "atteint");
 		temps = temps+1;
 		deb.put(u, temps);
 		for (E v : graphe.get(u)){
-			if (etat.get(v).equals("")){
-				pere.put(v, u);
-				temps = Visiter(v,etat, temps, deb, fin, pere);
+			if (etats.get(v).equals("nonAtteint")){
+				peres.put(v, u);
+				temps = Visiter(v, temps, deb, fin);
 			}
 		}
 		temps = temps +1;
 		fin.put(u,temps);
-		etat.put(u, "traite");
+		etats.put(u, "traite");
 		return temps;
 	}
 

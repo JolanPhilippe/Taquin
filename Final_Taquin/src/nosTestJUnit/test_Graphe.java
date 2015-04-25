@@ -17,19 +17,26 @@ public class test_Graphe {
 	public void testGrapheTaquin() {
 		GrapheListe<GrilleTaquin> graphe = new GrapheListe<GrilleTaquin>();
 		
-		GrilleTaquin gt1 = Game.initGame(1);
-		GrilleTaquin gt2 = Game.initGame(2);
-		GrilleTaquin gt3 = Game.initGame(3);
+		GrilleTaquin gt1 = new GrilleTaquin(1, 1);
+		GrilleTaquin gt2 = new GrilleTaquin(2, 2);
+		GrilleTaquin gt3 = new GrilleTaquin(3, 3);
 
 		graphe.ajouterSommet(gt1);
 		graphe.ajouterSommet(gt2);
 		graphe.ajouterSommet(gt3);
+		
+		graphe.ajouterArc(gt1,gt2);
+		
+		graphe.ajouterArc(gt3,gt2);
+		graphe.ajouterArc(gt3,gt1);
+		
 		
 		
 		System.out.println(graphe);
 		
 	}	
 	
+	/*
 	@Test
 	public void testPracoursLargeur() {
 		GrapheListe<Character> graphe = new GrapheListe<Character>();
@@ -81,9 +88,9 @@ public class test_Graphe {
 		graphe.ajouterArc('x', 'y'); graphe.ajouterArc('y', 'x');
 		
 		System.out.println("PARCOURS PROFONDEUR\n"+graphe);
-		Triplet<TreeMap<Character, Character>, TreeMap<Character, Integer>, TreeMap<Character, Integer>> c = graphe.parcoursProf();
-		TreeMap<Character, Character> lesPeres = c.getFst();
+		graphe.parcoursProf();
+		TreeMap<Character, Character> lesPeres = graphe.getPeres();
 		System.out.println(lesPeres);
-	}
+	}*/
 	
 }
