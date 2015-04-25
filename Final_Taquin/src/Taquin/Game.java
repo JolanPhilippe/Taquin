@@ -2,9 +2,12 @@ package Taquin;
 import java.awt.Event;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import lesGraphes.GrapheListe;
+import lesGraphes.Triplet;
 
 public class Game {
 	
@@ -79,29 +82,46 @@ public class Game {
 	
 	public static void resTaquin(){
 		GrilleTaquin gt = initGame(2);
+		System.out.println("LA GRILLE:\n"+gt);
+		System.out.println("LA GRILLE REFERENCE:\n"+ref);
+		
 		ArrayList<GrilleTaquin> aTraiter = new ArrayList<GrilleTaquin> ();
 		ArrayList<GrilleTaquin> traite = new ArrayList<GrilleTaquin> ();
-		GrapheListe<GrilleTaquin> gr = new GrapheListe <GrilleTaquin>();
+		GrapheListe<GrilleTaquin> graphe = new GrapheListe <GrilleTaquin>();
 		aTraiter.add(gt);
 		boolean test = true;
 		do{
 			GrilleTaquin tete = aTraiter.get(0);
 			if (!traite.contains(tete)){
 				System.out.println(tete);
-				gr.ajouterSommet(tete);
+				graphe.ajouterSommet(tete);
 				if (tete.equals(ref))
 					test = false;
 				else{
 					for (GrilleTaquin grille : tete.successeur()){
 						aTraiter.add(grille);
-						gr.ajouterArc(tete, grille);
+						System.out.println("AJOUT AU GRAPHE DE\n"+grille);
+						graphe.ajouterSommet(grille);
+						System.out.println(graphe);
+						graphe.ajouterArc(tete, grille);
+						
 					}
 				}
-				traite.add(tete);	
+				traite.add(tete);
 			}
 			aTraiter.remove(0);
 		}while (test);
-	
+		System.out.println("GRAPHE\n"+graphe);
+		lesGraphes.Couple<TreeMap<GrilleTaquin, GrilleTaquin>, TreeMap<GrilleTaquin, Integer>> c = graphe.parcoursLarg(gt);
+		/*TreeMap<GrilleTaquin, GrilleTaquin> lesPeres = c.getFst();
+		GrilleTaquin pere = lesPeres.get(gt);
+		LinkedList<GrilleTaquin> chemin = new LinkedList<GrilleTaquin>();
+		System.out.println(lesPeres);
+		while (!pere.equals(ref)){
+			chemin.add(pere);
+			pere = lesPeres.get(pere);
+		}*/
+		
 	}
 	
 	public static void playTaquin(){

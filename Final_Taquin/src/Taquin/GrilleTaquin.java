@@ -272,11 +272,16 @@ public class GrilleTaquin extends Grille{
 	public void setC0(int c0) {
 		this.c0 = c0;
 	}
-
-	@Override
-	public int compareTo(Grille arg0) {
-		return 0;
+	
+	public boolean equals (GrilleTaquin gt){
+		return super.equals(gt);
 	}
 
+	public int compareTo(Grille arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 }
 

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-public class GrapheListe<E> implements Graphe<E> {
+public class GrapheListe<E> extends Graphe<E> {
 	protected TreeMap<E, ArrayList<E>> graphe;
 	
 	public GrapheListe(){
@@ -131,6 +131,10 @@ public class GrapheListe<E> implements Graphe<E> {
 		fin.put(u,temps);
 		etat.put(u, "traite");
 		return temps;
+	}
+
+	public String toString(){
+		return graphe.toString();
 	}
 
 
