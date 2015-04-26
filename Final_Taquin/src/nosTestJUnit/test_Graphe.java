@@ -41,20 +41,18 @@ public class test_Graphe {
 		GrilleTaquin gt2 = new GrilleTaquin(2, 2);
 		GrilleTaquin gt3 = new GrilleTaquin(3, 3);
 		GrilleTaquin gt4 = new GrilleTaquin(4, 4);
-		grapheL.ajouterSommet(gt2);
+		
 		grapheL.ajouterSommet(gt3);
+		
 		grapheL.ajouterSommet(gt4);
-		System.out.println("GRAPHE:\n"+grapheL);
 		
-		/*
-		grapheL.ajouterArc(gt3,gt2);
-		grapheL.ajouterArc(gt2,gt2);	
+		grapheL.ajouterSommet(gt2);
 		
-		System.out.println("GRAPHE:\n"+grapheL);*/
+		
 		
 	}
-	/*
-	@Test
+	
+	/*@Test
 	public void testPracoursLargeur() {
 		System.out.println("TEST PARCOURS LARGEUR");
 		GrapheListe<Character> graphe = new GrapheListe<Character>();
@@ -81,9 +79,9 @@ public class test_Graphe {
 		graphe.parcoursLarg('s');
 		TreeMap<Character, Character> lesPeres = graphe.getPeres();
 		System.out.println(lesPeres+"\n");
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	public void testPracoursProfondeur() {
 		System.out.println("TEST PARCOURS PROFONDEUR");
 		GrapheListe<Character> graphe = new GrapheListe<Character>();

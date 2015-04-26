@@ -7,11 +7,15 @@ public class GrapheListe<E> extends Graphe<E> {
 	private TreeMap<E, ArrayList<E>> graphe;
 	
 	public GrapheListe(){
-		this.setGraphe(new TreeMap<E, ArrayList<E>>());
+		this.setGraphe(new TreeMap<E,	ArrayList<E>>());
 	}
 	
 	public void ajouterSommet(E s){
-		getGraphe().put(s, new ArrayList<E>());
+		System.out.println("AVANT AJOUT\n"+this);
+		if(!graphe.containsKey(s)){
+			graphe.put(s, new ArrayList<E>());
+			System.out.println("APRES AJOUT\n"+this);}
+		
 	}
 	
 	/** Recupere les sommets voisins d'un element
@@ -20,7 +24,7 @@ public class GrapheListe<E> extends Graphe<E> {
   	* @return la liste des voisins de u
  	*/
 	public ArrayList<E> getAdjacent(E u) {
-		return getGraphe().get(u);
+		return graphe.get(u);
 	}
 
 	/** Ajouter un arc au graphe
@@ -30,8 +34,9 @@ public class GrapheListe<E> extends Graphe<E> {
 	 */
 	public void ajouterArc(E a, E b) {
 		ArrayList<E> liste = getAdjacent(a);
-		liste.add(b);
-		getGraphe().put(a, liste);
+		if(!liste.contains(b))
+			liste.add(b);
+		graphe.put(a, liste);
 	}
 
 	/** Supprime un arc du graphe
@@ -134,7 +139,7 @@ public class GrapheListe<E> extends Graphe<E> {
 		String s ="";
 		for (E k: getGraphe().keySet()){
 			s+="sommet:\n"+k+"\nles succ:\n";
-			if( getGraphe().get(k)==null) s+="null\n";
+			if(getGraphe().get(k)==null) s+="nulitude\n";
 			else{
 				for (E v : getGraphe().get(k))
 					s+=v+"\n";
@@ -148,8 +153,8 @@ public class GrapheListe<E> extends Graphe<E> {
 		return graphe;
 	}
 
-	public void setGraphe(TreeMap<E, ArrayList<E>> graphe) {
-		this.graphe = graphe;
+	public void setGraphe(TreeMap<E, ArrayList<E>> treeMap) {
+		this.graphe = treeMap;
 	}
 
 
