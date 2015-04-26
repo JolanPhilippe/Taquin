@@ -274,7 +274,7 @@ public class GrilleTaquin extends Grille{
 	}
 	
 	public boolean equals (GrilleTaquin gt){
-		return super.equals(gt);
+		return super.equals(gt) && l0==gt.l0 && c0==gt.c0;
 	}
 
 	public int compareTo(Grille arg0) {

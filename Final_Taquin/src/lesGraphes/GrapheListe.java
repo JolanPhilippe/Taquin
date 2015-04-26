@@ -1,17 +1,18 @@
 package lesGraphes;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
 public class GrapheListe<E> extends Graphe<E> {
-	protected TreeMap<E, ArrayList<E>> graphe;
+	private HashMap<E, ArrayList<E>> graphe;
 	
 	public GrapheListe(){
-		this.graphe= new TreeMap<E, ArrayList<E>>();
+		this.setGraphe(new HashMap<E, ArrayList<E>>());
 	}
 	
 	public void ajouterSommet(E s){
-		graphe.put(s, new ArrayList<E>());
+		getGraphe().put(s, new ArrayList<E>());
 	}
 	
 	/** Recupere les sommets voisins d'un element
@@ -20,7 +21,7 @@ public class GrapheListe<E> extends Graphe<E> {
   	* @return la liste des voisins de u
  	*/
 	public ArrayList<E> getAdjacent(E u) {
-		return graphe.get(u);
+		return getGraphe().get(u);
 	}
 
 	/** Ajouter un arc au graphe
@@ -31,6 +32,7 @@ public class GrapheListe<E> extends Graphe<E> {
 	public void ajouterArc(E a, E b) {
 		ArrayList<E> liste = getAdjacent(a);
 		liste.add(b);
+		getGraphe().put(a, liste);
 	}
 
 	/** Supprime un arc du graphe
@@ -53,7 +55,7 @@ public class GrapheListe<E> extends Graphe<E> {
 	 */
 	public TreeMap<E,Integer> parcoursLarg(E s) {				
 		TreeMap<E,Integer> dist = new TreeMap<E,Integer>();	//dist: tab[1..n] d'entier, distance des sommets du sommet source
-		for (E x : graphe.keySet()){ /*debut init*/
+		for (E x : getGraphe().keySet()){ /*debut init*/
 			peres.put(x, null);
 			etats.put(x, "nonAtteint");
 			dist.put(x, Integer.MAX_VALUE); //MAX_VALUE nous sert d'infini
@@ -64,15 +66,16 @@ public class GrapheListe<E> extends Graphe<E> {
 		fifo.add(s); //empiler(s)
 		while (!fifo.isEmpty()){
 			E u = fifo.poll(); //extraire()
-			for (E v : graphe.get(u)){
-				if (etats.get(v).equals("nonAtteint")){
-					peres.put(v,u);
-					dist.put(v, dist.get(u)+1); 
-					etats.put(v, "atteint");
-					fifo.add(v);
+			if (getGraphe().get(u)!=null)
+				for (E v : getGraphe().get(u)){
+					if (etats.get(v).equals("nonAtteint")){
+						peres.put(v,u);
+						dist.put(v, dist.get(u)+1); 
+						etats.put(v, "atteint");
+						fifo.add(v);
+					}
+					etats.put(u,"traite");
 				}
-				etats.put(u,"traite");
-			}
 		}
 		return dist;
 	}
@@ -87,7 +90,7 @@ public class GrapheListe<E> extends Graphe<E> {
 		TreeMap<E,Integer> fin = new TreeMap<E,Integer>();		//fin:  tab[1..n] du temps avant le traitement du sommet
 		int temps = 0;
 		/*debut init*/
-		for (E x : graphe.keySet()){ 
+		for (E x : getGraphe().keySet()){ 
 			peres.put(x, null);
 			etats.put(x, "nonAtteint");
 			deb.put(x, Integer.MAX_VALUE); //MAX_VALUE nous sert d'infini
@@ -95,7 +98,7 @@ public class GrapheListe<E> extends Graphe<E> {
 		}
 		/*fini init*/
 		
-		for (E s : graphe.keySet()){
+		for (E s : getGraphe().keySet()){
 			if (etats.get(s).equals("nonAtteint"))
 				temps = Visiter(s, temps, deb, fin);
 		}
@@ -116,7 +119,7 @@ public class GrapheListe<E> extends Graphe<E> {
 		etats.put(u, "atteint");
 		temps = temps+1;
 		deb.put(u, temps);
-		for (E v : graphe.get(u)){
+		for (E v : getGraphe().get(u)){
 			if (etats.get(v).equals("nonAtteint")){
 				peres.put(v, u);
 				temps = Visiter(v, temps, deb, fin);
@@ -129,7 +132,23 @@ public class GrapheListe<E> extends Graphe<E> {
 	}
 
 	public String toString(){
-		return graphe.toString();
+		String s ="";
+		for (E k: getGraphe().keySet()){
+			s+="sommet:\n"+k+"\nles succ:\n";
+			for (E v : getGraphe().get(k))
+				s+=v+"\n";
+			s+="\n";
+		}
+		
+		return s;				
+	}
+
+	public HashMap<E, ArrayList<E>> getGraphe() {
+		return graphe;
+	}
+
+	public void setGraphe(HashMap<E, ArrayList<E>> graphe) {
+		this.graphe = graphe;
 	}
 
 
