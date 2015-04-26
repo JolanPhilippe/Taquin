@@ -101,6 +101,7 @@ public class Game {
 		}while (test);
 		System.out.println("GRAPHE\n"+graphe);
 		graphe.parcoursLarg(gt);
+		System.out.println(graphe.getPeres());
 		
 	}
 	

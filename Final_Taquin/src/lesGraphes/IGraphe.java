@@ -1,9 +1,9 @@
 package lesGraphes;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.TreeMap;
 
 public interface IGraphe <E> {
-	
 	public ArrayList<E> getAdjacent (E u);
 	public void ajouterArc(E a, E b);
 	public IGraphe<E> supprimerArc (E a, E b);

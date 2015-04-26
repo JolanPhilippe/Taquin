@@ -278,8 +278,10 @@ public class GrilleTaquin extends Grille{
 	}
 
 	public int compareTo(Grille arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (this.equals(arg0))
+			return 0;
+		else
+			return -1;
 	}
 	
 	

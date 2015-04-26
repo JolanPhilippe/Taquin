@@ -1,14 +1,13 @@
 package lesGraphes;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
 public class GrapheListe<E> extends Graphe<E> {
-	private HashMap<E, ArrayList<E>> graphe;
+	private TreeMap<E, ArrayList<E>> graphe;
 	
 	public GrapheListe(){
-		this.setGraphe(new HashMap<E, ArrayList<E>>());
+		this.setGraphe(new TreeMap<E, ArrayList<E>>());
 	}
 	
 	public void ajouterSommet(E s){
@@ -135,19 +134,21 @@ public class GrapheListe<E> extends Graphe<E> {
 		String s ="";
 		for (E k: getGraphe().keySet()){
 			s+="sommet:\n"+k+"\nles succ:\n";
-			for (E v : getGraphe().get(k))
-				s+=v+"\n";
-			s+="\n";
+			if( getGraphe().get(k)==null) s+="null\n";
+			else{
+				for (E v : getGraphe().get(k))
+					s+=v+"\n";
+				s+="\n";
+			}
 		}
-		
 		return s;				
 	}
 
-	public HashMap<E, ArrayList<E>> getGraphe() {
+	public TreeMap<E, ArrayList<E>> getGraphe() {
 		return graphe;
 	}
 
-	public void setGraphe(HashMap<E, ArrayList<E>> graphe) {
+	public void setGraphe(TreeMap<E, ArrayList<E>> graphe) {
 		this.graphe = graphe;
 	}
 
