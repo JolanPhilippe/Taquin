@@ -1,13 +1,13 @@
 package nosTestJUnit;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 import lesGraphes.GrapheListe;
 import org.junit.Test;
 import Taquin.GrilleTaquin;
 
 public class test_Graphe {
 	
-	/*@Test
+	@Test
 	public void test(){
 		System.out.println("TEST CREATION GRAPHE TYPE CHAR");
 		GrapheListe<Character> graphe = new GrapheListe<Character>();
@@ -31,7 +31,7 @@ public class test_Graphe {
 		graphe.ajouterArc('x', 'y'); graphe.ajouterArc('y', 'x');
 		
 		System.out.println(graphe);
-	}*/
+	}
 
 	@Test
 	public void testGrapheTaquin() {
@@ -41,18 +41,23 @@ public class test_Graphe {
 		GrilleTaquin gt2 = new GrilleTaquin(2, 2);
 		GrilleTaquin gt3 = new GrilleTaquin(3, 3);
 		GrilleTaquin gt4 = new GrilleTaquin(4, 4);
-		
-		grapheL.ajouterSommet(gt3);
-		
-		grapheL.ajouterSommet(gt4);
+		GrilleTaquin gt5 = new GrilleTaquin(5, 5);
 		
 		grapheL.ajouterSommet(gt2);
+		grapheL.ajouterSommet(gt3);
+		grapheL.ajouterSommet(gt4);
+		grapheL.ajouterSommet(gt5);
 		
+		grapheL.ajouterArc(gt2,gt3);
+		grapheL.ajouterArc(gt2,gt3); //ajout double
+		grapheL.ajouterArc(gt3,gt5);
+		grapheL.ajouterArc(gt4,gt5);
 		
+		System.out.println(grapheL);
 		
 	}
 	
-	/*@Test
+	@Test
 	public void testPracoursLargeur() {
 		System.out.println("TEST PARCOURS LARGEUR");
 		GrapheListe<Character> graphe = new GrapheListe<Character>();
@@ -77,11 +82,11 @@ public class test_Graphe {
 		
 		System.out.println("PARCOURS LARGEUR:");
 		graphe.parcoursLarg('s');
-		TreeMap<Character, Character> lesPeres = graphe.getPeres();
+		HashMap<Character, Character> lesPeres = graphe.getPeres();
 		System.out.println(lesPeres+"\n");
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void testPracoursProfondeur() {
 		System.out.println("TEST PARCOURS PROFONDEUR");
 		GrapheListe<Character> graphe = new GrapheListe<Character>();
@@ -106,9 +111,9 @@ public class test_Graphe {
 		
 		System.out.println("PARCOURS PROFONDEUR:");
 		graphe.parcoursProf();
-		TreeMap<Character, Character> lesPeres = graphe.getPeres();
+		HashMap<Character, Character> lesPeres = graphe.getPeres();
 		System.out.println(lesPeres);
-	}*/
+	}
 	
 	
 }

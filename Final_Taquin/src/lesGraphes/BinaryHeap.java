@@ -4,6 +4,18 @@ import java.util.ArrayList;
 public abstract class  BinaryHeap<E> implements Heap<E> {
 	protected ArrayList<E> tas;
 	
+	public BinaryHeap() {
+		this.tas = new ArrayList<E>();
+	}
+	
+	/** Construit un tas a partir d'un tas deja existant
+	 * 
+	 * @param tas
+	 */
+	public BinaryHeap(ArrayList<E> tas) {
+		this.tas = tas;
+	}
+
 	/** Donne la taille du tas (le nb d'element dans le tas)
 	 * 
 	 * @return le nombre d'element dans le tas
@@ -72,7 +84,7 @@ public abstract class  BinaryHeap<E> implements Heap<E> {
 	 */
 	public E filsGauche(E e) throws ElementInexistantException{
 		int i = getIndex(e);
-		return filsGauche(i);
+		return getElem(2*i+1);
 	}
 	
 	/** Recupere le fils droit d'un element
@@ -84,7 +96,7 @@ public abstract class  BinaryHeap<E> implements Heap<E> {
 	 */
 	public E filsDroit(E e) throws ElementInexistantException{
 		int i = getIndex(e);
-		return filsGauche(i);
+		return getElem(2*i+2);
 	}
 	
 	/** Recupere le pere d'un element a partir d'un indice
@@ -106,7 +118,7 @@ public abstract class  BinaryHeap<E> implements Heap<E> {
 	 * @throws ElementInexistantException si aucun element n'est present a l'indice i
 	 */
 	public E filsGauche(int i) throws ElementInexistantException{
-		return getElem(2*i);
+		return getElem(2*i+1);
 	}
 	
 	/** Recupere le fils droit d'un element a partir d'un indice
@@ -117,11 +129,28 @@ public abstract class  BinaryHeap<E> implements Heap<E> {
 	 * @throws ElementInexistantException si aucun element n'est present a l'indice i
 	 */
 	public E filsDroit(int i) throws ElementInexistantException{
-		return getElem(2*i);
+		return getElem(2*i+2);
 	}
 
+	public String toString(){
+		String s="";
+		int compt=0;
+		int pow=0;
+		for (E e: tas){
+			if(compt==Math.pow(2, pow)){ 
+				s+="\n";
+				compt=0;
+				pow++;
+			}
+			s+=e;
+			compt++;
+			if(!(compt==Math.pow(2, pow)))s+="|";
+			
+		}
+		return s;
+	}
+	
 	public abstract void add(E e); 
 	public abstract void remove(E e);
 	
-	public abstract boolean testValidite();
 }

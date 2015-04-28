@@ -284,6 +284,52 @@ public class GrilleTaquin extends Grille{
 			return -1;
 	}
 	
+	/** Permet de fournir la grille de taquin finale d'une grille de taquin mélangée
+	 * 
+	 * @param t La grille de taquin à ranger
+	 * @return La grille de taquin correctement rangée
+	 */
+	public GrilleTaquin taquinRange(){
+		int l = this.getLigne();
+		int c = this.getColonne();
+		int[][] table = this.getTable();
+		int[][] tableRange = new int[l][c];
+		GrilleTaquin range = new GrilleTaquin(l, c);
+		int count = 1;
+		for(int i=0; i<l; i++){
+			for(int j=0; j<c; j++){
+				if(table[i][j] == -1){
+					tableRange[i][j] = -1;
+				}else{
+					tableRange[i][j] = count;
+					count++;
+				}
+			}
+		}
+		range.setTable(tableRange);
+		return range;
+	}
+	
+	/**
+	 * 
+	 * @param t1 Grille de taquin avant mouvement
+	 * @param t2 Grille de taquin après mouvement
+	 * 
+	 * @return Un caractère correspondant au mouvement effectué par l'utilisateur pour déplacer la case vide
+	 */
+	public char compZero(GrilleTaquin t1){
+		if(this.getL0() > t1.getL0())
+			return 'N';
+		else
+			if(this.getL0() < t1.getL0())
+				return 'S';
+			else
+				if(this.getC0() > t1.getC0())
+					return 'E';
+				else
+					return 'O';
+	}
+	
 	
 }
 

@@ -1,20 +1,20 @@
 package lesGraphes;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public class GrapheListe<E> extends Graphe<E> {
-	private TreeMap<E, ArrayList<E>> graphe;
+	private HashMap<E, ArrayList<E>> graphe;
 	
 	public GrapheListe(){
-		this.setGraphe(new TreeMap<E,	ArrayList<E>>());
+		this.setGraphe(new HashMap<E,	ArrayList<E>>());
 	}
 	
 	public void ajouterSommet(E s){
-		System.out.println("AVANT AJOUT\n"+this);
 		if(!graphe.containsKey(s)){
 			graphe.put(s, new ArrayList<E>());
-			System.out.println("APRES AJOUT\n"+this);}
+		}
 		
 	}
 	
@@ -57,21 +57,22 @@ public class GrapheListe<E> extends Graphe<E> {
 	 * @param s le sommet source
 	 * @return un couple de Map: (fst -> Map<> pere) (snd -> Map<> dist)
 	 */
-	public TreeMap<E,Integer> parcoursLarg(E s) {				
-		TreeMap<E,Integer> dist = new TreeMap<E,Integer>();	//dist: tab[1..n] d'entier, distance des sommets du sommet source
+	public HashMap<E,Integer> parcoursLarg(E s) {				
+		HashMap<E,Integer> dist = new HashMap<E,Integer>();	//dist: tab[1..n] d'entier, distance des sommets du sommet source
 		for (E x : getGraphe().keySet()){ /*debut init*/
 			peres.put(x, null);
 			etats.put(x, "nonAtteint");
 			dist.put(x, Integer.MAX_VALUE); //MAX_VALUE nous sert d'infini
 		}
 		etats.put(s, "atteint");
-		dist.put(s, 0); /*fini init*/
+		dist.put(s,0);
+		
 		LinkedList<E> fifo = new LinkedList<E>(); //fifo : liste des sommets atteint mais non traités
 		fifo.add(s); //empiler(s)
 		while (!fifo.isEmpty()){
 			E u = fifo.poll(); //extraire()
 			if (getGraphe().get(u)!=null)
-				for (E v : getGraphe().get(u)){
+				for (E v : this.getAdjacent(u)){
 					if (etats.get(v).equals("nonAtteint")){
 						peres.put(v,u);
 						dist.put(v, dist.get(u)+1); 
@@ -81,6 +82,7 @@ public class GrapheListe<E> extends Graphe<E> {
 					etats.put(u,"traite");
 				}
 		}
+
 		return dist;
 	}
 
@@ -149,12 +151,12 @@ public class GrapheListe<E> extends Graphe<E> {
 		return s;				
 	}
 
-	public TreeMap<E, ArrayList<E>> getGraphe() {
+	public HashMap<E, ArrayList<E>> getGraphe() {
 		return graphe;
 	}
 
-	public void setGraphe(TreeMap<E, ArrayList<E>> treeMap) {
-		this.graphe = treeMap;
+	public void setGraphe(HashMap<E, ArrayList<E>> HashMap) {
+		this.graphe = HashMap;
 	}
 
 

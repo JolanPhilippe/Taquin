@@ -1,29 +1,29 @@
 package lesGraphes;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public abstract class Graphe<E> implements IGraphe<E>{
-	protected TreeMap<E,E> peres;					
-	protected TreeMap<E,String> etats; 
+	protected HashMap<E,E> peres;					
+	protected HashMap<E,String> etats; 
 
 	public Graphe(){
-		setPeres(new TreeMap<E,E>());
-		etats = new TreeMap <E,String>();
+		setPeres(new HashMap<E,E>());
+		etats = new HashMap <E,String>();
 	}
 
-	public TreeMap<E,E> getPeres() {
+	public HashMap<E,E> getPeres() {
 		return peres;
 	}
 
-	public void setPeres(TreeMap<E,E> peres) {
-		this.peres = peres;
+	public void setPeres(HashMap<E, E> hashMap) {
+		this.peres = hashMap;
 	}
 	
-	public TreeMap<E,String> getEtats() {
+	public HashMap<E,String> getEtats() {
 		return etats;
 	}
 
-	public void setEtats(TreeMap<E,String> etats) {
+	public void setEtats(HashMap<E,String> etats) {
 		this.etats = etats;
 	}
 	

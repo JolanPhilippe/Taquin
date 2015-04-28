@@ -1,5 +1,7 @@
 package Taquin;
 import java.awt.Event;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -74,67 +76,63 @@ public class Game {
 	 * @since 1.0
 	 */
 	public static void main (String[]args){
-		resTaquin();
+		GrilleTaquin gt = initGame(3);
+		try {
+			ResTaquinB(gt,2);
+		} catch (ValInexistanteException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
-	public static void resTaquin(){
-		GrilleTaquin gt = initGame(2);
-		LinkedList<GrilleTaquin> marque = new LinkedList<GrilleTaquin> ();
-		LinkedList<GrilleTaquin> traite = new LinkedList<GrilleTaquin> ();
+	/**
+	 * 
+	 * @param gt
+	 * @param typeRes 1: parcours en largeur | 2: parcours en profondeur | 3: tas par Manhattan | 4: tas prof+Manhattan
+	 * @throws ValInexistanteException
+	 */
+	public static void ResTaquinB (GrilleTaquin gt, int typeRes) throws ValInexistanteException{
+		LinkedList<GrilleTaquin> Marque = new LinkedList<GrilleTaquin> ();
+		LinkedList<GrilleTaquin> ATraite = new LinkedList<GrilleTaquin> ();
 		GrapheListe<GrilleTaquin> graphe = new GrapheListe <GrilleTaquin>();
-		marque.add(0, gt);
+		Marque.add(gt);
 		boolean test = true;
 		do{
-			GrilleTaquin tete = marque.getFirst();
+			GrilleTaquin tete = Marque.getFirst();
 			graphe.ajouterSommet(tete);
 			boolean testContains = false;
-			for (GrilleTaquin gtTest:traite) if(tete.equals(gtTest)) testContains=true;
+			for (GrilleTaquin gtTest:ATraite) if(tete.equals(gtTest)) testContains=true;
 			if(!testContains){
 				for (GrilleTaquin grille : tete.successeur()){
 					graphe.ajouterArc(tete, grille);
-					marque.add(grille);
-					if (grille.equals(ref)){test = false; traite.add(0,grille);}
+					if(!graphe.getGraphe().containsKey(grille)) graphe.ajouterSommet(grille);
+					if(!ATraite.contains(grille) && !Marque.contains(grille)) Marque.add(grille);
+					if (grille.equals(ref)){ref=grille;test = false; ATraite.add(0,grille);}
 				}
-				traite.add(0,tete);
+				switch (typeRes){
+					case 1:	ATraite.add(0,tete); break;
+					case 2:	ATraite.add(ATraite.size(),tete); break;
+					default: throw new ValInexistanteException("Ce mode de resolution est impossible");
+				}
 			}
-			marque.remove(0);
+			Marque.remove(0);
 		}while (test);
-		System.out.println("GRAPHE\n"+graphe);
-		graphe.parcoursLarg(gt);
-		System.out.println(graphe.getPeres());
 		
+		switch (typeRes){
+			case 1:graphe.parcoursLarg(gt); break;
+			case 2:graphe.parcoursProf(); break;
+			default: throw new ValInexistanteException("Ce mode de resolution est impossible");
+		}
+		
+		HashMap<GrilleTaquin,GrilleTaquin> lesPeres = graphe.getPeres();
+		
+		ArrayList<GrilleTaquin> succ = new ArrayList<GrilleTaquin>();
+		GrilleTaquin pere = ref;
+		while(pere!=null){
+			succ.add(0,pere);
+			pere = lesPeres.get(pere);
+		}
+		for(GrilleTaquin x:succ) System.out.println(x);	
 	}
-	
-	
-	/*public static void resTaquin(){
-		GrilleTaquin gt = initGame(2);
-		
-		LinkedList<GrilleTaquin> aTraiter = new LinkedList<GrilleTaquin> ();
-		LinkedList<GrilleTaquin> traite = new LinkedList<GrilleTaquin> ();
-		
-		aTraiter.add(gt);
-		boolean test = true;
-		do{
-			GrilleTaquin tete = aTraiter.get(0);
-			if (!traite.contains(tete)){
-				graphe.ajouterSommet(tete);
-				if (tete.equals(ref))
-					test = false;
-				else{
-					for (GrilleTaquin grille : tete.successeur()){
-						aTraiter.add(grille);
-						graphe.ajouterSommet(grille);
-						graphe.ajouterArc(tete, grille);
-						
-					}
-				}
-				traite.add(tete);
-			}
-			aTraiter.remove(0);
-		}while (test);
-		System.out.println(graphe);
-		
-	}*/
 	
 	public static void playTaquin(){
 		boolean play=true;

@@ -1,6 +1,6 @@
 package lesGraphes;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public interface IGraphe <E> {
@@ -9,7 +9,7 @@ public interface IGraphe <E> {
 	public IGraphe<E> supprimerArc (E a, E b);
 	
 	public Couple<TreeMap<E,Integer>,TreeMap<E,Integer>> parcoursProf();
-	public TreeMap<E,Integer> parcoursLarg(E s);
+	public HashMap<E,Integer> parcoursLarg(E s);
 	public String toString();
 
 }
