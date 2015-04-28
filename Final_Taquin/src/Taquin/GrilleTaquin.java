@@ -1,5 +1,6 @@
 package Taquin;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GrilleTaquin extends Grille{
 	
@@ -221,6 +222,43 @@ public class GrilleTaquin extends Grille{
 	}
 	
 	/**
+	 * 
+	 * @return
+	 * 
+	 * @author Jolan
+	 * @since 1.0 
+	 */
+	public HashMap<GrilleTaquin, Character> successeur (char c){
+		HashMap<GrilleTaquin,Character> lesSucc= new HashMap<GrilleTaquin,Character> ();
+		//test SUD
+		if(!(c=='n'))
+			try {
+				lesSucc.put(this.copyOf().playMove('s'),'s');
+			} catch (MouvementImpossibleException | QuitterException e){}
+		
+		//test NORD
+		if(!(c=='s'))
+			try {
+				lesSucc.put(this.copyOf().playMove('n'),'n');
+			} catch (MouvementImpossibleException | QuitterException e){}
+		
+		//test EST
+		if(!(c=='o'))
+			try {
+				lesSucc.put(this.copyOf().playMove('e'),'e');
+			} catch (MouvementImpossibleException | QuitterException e){}
+		
+		//test OUEST
+		if(!(c=='e'))
+			try {
+				lesSucc.put(this.copyOf().playMove('o'),'o');
+			} catch (MouvementImpossibleException | QuitterException e){}
+		
+		return lesSucc;
+	}
+	
+	
+	/**
 	 * @author Jolan
 	 * @since 1.1
 	 */
@@ -317,17 +355,15 @@ public class GrilleTaquin extends Grille{
 	 * 
 	 * @return Un caractère correspondant au mouvement effectué par l'utilisateur pour déplacer la case vide
 	 */
-	public char compZero(GrilleTaquin t1){
-		if(this.getL0() > t1.getL0())
+	public char compZero(GrilleTaquin gt){
+		if( this.l0 > gt.l0 )
 			return 'N';
+		if( this.l0 < gt.l0 )
+			return 'S';
+		if( this.c0 > gt.c0 )
+			return 'O';
 		else
-			if(this.getL0() < t1.getL0())
-				return 'S';
-			else
-				if(this.getC0() > t1.getC0())
-					return 'E';
-				else
-					return 'O';
+			return 'E';
 	}
 	
 	
