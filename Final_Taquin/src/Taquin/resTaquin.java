@@ -1,37 +1,63 @@
 package Taquin;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+
+import lesGraphes.GrapheListe;
 
 public class resTaquin {
 	
 	static GrilleTaquin ref;
 	
-	public static GrilleTaquin initGame(int col){
-		GrilleTaquin gt = new GrilleTaquin(col,col);
-		ref = gt.copyOf();
-		gt.mixTab();
-		return gt;
-	}
-	/** programme executable
+	/**
 	 * 
-	 * @param args entree clavier
-	 * 
-	 * @author Jolan Anthony Thibault Benoit
-	 * @since 1.0
+	 * @param gt
+	 * @param typeRes 1: parcours en largeur | 2: parcours en profondeur | 3: tas par Manhattan | 4: tas prof+Manhattan
+	 * @throws ValInexistanteException
 	 */
-	public static void main (String[]args){
-		Date d = new Date(); System.out.println(d);
-		GrilleTaquin gt = initGame(3);
-		System.out.println("####\n"+gt+"\n####");
-		try {
-			ResTaquinH(gt,2);
-		} catch (ValInexistanteException e) {
-			System.out.println(e.getMessage());
+	public static void ResTaquinB1 (GrilleTaquin gt, int typeRes) throws ValInexistanteException{
+		LinkedList<GrilleTaquin> Marque = new LinkedList<GrilleTaquin> ();
+		LinkedList<GrilleTaquin> ATraite = new LinkedList<GrilleTaquin> ();
+		GrapheListe<GrilleTaquin> graphe = new GrapheListe <GrilleTaquin>();
+		Marque.add(gt);
+		boolean test = true;
+		do{
+			GrilleTaquin tete = Marque.getFirst();
+			graphe.ajouterSommet(tete);
+			boolean testContains = false;
+			for (GrilleTaquin gtTest:ATraite) if(tete.equals(gtTest)) testContains=true;
+			if(!testContains){
+				for (GrilleTaquin grille : tete.successeur()){
+					graphe.ajouterArc(tete, grille);
+					if(!graphe.getGraphe().containsKey(grille)) graphe.ajouterSommet(grille);
+					if(!ATraite.contains(grille) && !Marque.contains(grille)) Marque.add(grille);
+					if (grille.equals(ref)){ref=grille;test = false; ATraite.add(0,grille);}
+				}
+				switch (typeRes){
+					case 1:	ATraite.add(0,tete); break;
+					case 2:	ATraite.add(ATraite.size(),tete); break;
+					default: throw new ValInexistanteException("Ce mode de resolution est impossible");
+				}
+			}
+			Marque.remove(0);
+		}while (test);
+		
+		switch (typeRes){
+			case 1:graphe.parcoursLarg(gt); break;
+			case 2:graphe.parcoursProf(); break;
+			default: throw new ValInexistanteException("Ce mode de resolution est impossible");
 		}
-		d = new Date(); System.out.println(d);
+		
+		HashMap<GrilleTaquin,GrilleTaquin> lesPeres = graphe.getPeres();
+		
+		ArrayList<GrilleTaquin> succ = new ArrayList<GrilleTaquin>();
+		GrilleTaquin pere = ref;
+		while(pere!=null){
+			succ.add(0,pere);
+			pere = lesPeres.get(pere);
+		}
+		for(GrilleTaquin x:succ) System.out.println(x);	
 	}
 	
 	/**
@@ -40,7 +66,7 @@ public class resTaquin {
 	 * @param typeRes 1: parcours en largeur | 2: parcours en profondeur | 3: tas par Manhattan | 4: tas prof+Manhattan
 	 * @throws ValInexistanteException
 	 */
-	public static void ResTaquinB (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
+	public static void ResTaquinB2 (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
 		LinkedList<GrilleTaquin> Marque = new LinkedList<GrilleTaquin> ();
 		LinkedList<GrilleTaquin> ATraite = new LinkedList<GrilleTaquin> ();
 		HashMap<GrilleTaquin,GrilleTaquin> lesPeres = new HashMap<GrilleTaquin,GrilleTaquin>();
@@ -83,13 +109,13 @@ public class resTaquin {
 		System.out.println(sol);
 	}
 	
-	/**
+	/** Resout taquin avec 
 	 * 
 	 * @param gt
 	 * @param typeRes 1: parcours en largeur | 2: parcours en profondeur | 3: tas par Manhattan | 4: tas prof+Manhattan
 	 * @throws ValInexistanteException
 	 */
-	public static void ResTaquinH (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
+	public static void ResTaquinB3 (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
 		LinkedList<GrilleTaquin> Marque = new LinkedList<GrilleTaquin> ();
 		HashMap<GrilleTaquin,Character> CharPred = new HashMap<GrilleTaquin,Character> ();
 		LinkedList<GrilleTaquin> ATraite = new LinkedList<GrilleTaquin> ();
@@ -136,4 +162,7 @@ public class resTaquin {
 		System.out.println(sol);
 	}
 	
+
+	
+
 }
