@@ -1,5 +1,8 @@
 package lesGraphes;
 
+import lesExceptions.ElementInexistantException;
+import lesExceptions.TasVideException;
+
 public class MinHeap<E extends Comparable<E>> extends BinaryHeap<E>{
 	
 	public void downHeap(E e) throws ElementInexistantException{

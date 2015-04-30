@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import lesExceptions.ValInexistanteException;
 import lesGraphes.GrapheListe;
 
 public class resTaquin {

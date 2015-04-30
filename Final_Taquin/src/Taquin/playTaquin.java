@@ -3,6 +3,9 @@ package Taquin;
 import java.awt.Event;
 import java.util.Scanner;
 
+import lesExceptions.MouvementImpossibleException;
+import lesExceptions.QuitterException;
+
 public class playTaquin {
 	
 	static Scanner sc = new Scanner (System.in);

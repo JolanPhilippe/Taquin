@@ -1,17 +1,19 @@
-package lesGraphes;
+package lesExceptions;
 
 @SuppressWarnings("serial")
-public class ElementInexistantException extends Exception {
+public class QuitterException extends Exception {
+
 	/** Constructeur par defaut de l'Exception
  	*/
-	public ElementInexistantException(){
+	public QuitterException(){
 		super();
 	}
 	/** Constructeur de l'Exception avec message d'erreur integré
 	 * 
 	 * @param arg0 : un message clair sur la nature du probleme
 	 */
-	public ElementInexistantException(String message){
+	public QuitterException(String message){
 		super(message);
 	} 
+
 }

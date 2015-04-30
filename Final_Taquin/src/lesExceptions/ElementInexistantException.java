@@ -1,19 +1,17 @@
-package Taquin;
+package lesExceptions;
 
 @SuppressWarnings("serial")
-public class QuitterException extends Exception {
-
+public class ElementInexistantException extends Exception {
 	/** Constructeur par defaut de l'Exception
  	*/
-	public QuitterException(){
+	public ElementInexistantException(){
 		super();
 	}
 	/** Constructeur de l'Exception avec message d'erreur integré
 	 * 
 	 * @param arg0 : un message clair sur la nature du probleme
 	 */
-	public QuitterException(String message){
+	public ElementInexistantException(String message){
 		super(message);
 	} 
-
 }

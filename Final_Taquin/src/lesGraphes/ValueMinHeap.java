@@ -2,6 +2,8 @@ package lesGraphes;
 
 import java.util.HashMap;
 
+import lesExceptions.ElementInexistantException;
+
 public class ValueMinHeap<E> extends BinaryHeap<E>{
 	private HashMap<E,Integer> value;
 		

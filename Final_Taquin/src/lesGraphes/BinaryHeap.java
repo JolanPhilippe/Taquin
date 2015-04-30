@@ -1,6 +1,8 @@
 package lesGraphes; 
 import java.util.ArrayList;
 
+import lesExceptions.ElementInexistantException;
+
 public class  BinaryHeap<E> implements Heap<E> {
 	protected ArrayList<E> tas;
 	

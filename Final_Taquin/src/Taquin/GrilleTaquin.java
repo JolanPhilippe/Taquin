@@ -2,6 +2,10 @@ package Taquin;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import lesExceptions.MouvementImpossibleException;
+import lesExceptions.QuitterException;
+import lesExceptions.ValInexistanteException;
+
 public class GrilleTaquin extends Grille{
 	
 	private int l0;

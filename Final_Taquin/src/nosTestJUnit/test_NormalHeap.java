@@ -1,7 +1,7 @@
 package nosTestJUnit;
 
 import static org.junit.Assert.*;
-import lesGraphes.ElementInexistantException;
+import lesExceptions.ElementInexistantException;
 import lesGraphes.NormalHeap;
 
 import org.junit.Test;

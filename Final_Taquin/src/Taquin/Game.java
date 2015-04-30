@@ -3,6 +3,8 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import lesExceptions.ValInexistanteException;
+
 public class Game {
 	
 	static GrilleTaquin ref;

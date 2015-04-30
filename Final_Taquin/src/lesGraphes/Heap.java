@@ -1,5 +1,7 @@
 package lesGraphes;
 
+import lesExceptions.ElementInexistantException;
+
 public interface Heap <E> {
 	
 	public int size();

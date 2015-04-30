@@ -1,11 +1,12 @@
 package nosTestJUnit;
 
+import lesExceptions.MouvementImpossibleException;
+import lesExceptions.QuitterException;
+
 import org.junit.Test;
 
 import Taquin.Game;
 import Taquin.GrilleTaquin;
-import Taquin.MouvementImpossibleException;
-import Taquin.QuitterException;
 
 /** Tests pour la methode copyOf de la classe GrilleTaquin
  * 

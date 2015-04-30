@@ -1,4 +1,4 @@
-package Taquin;
+package lesExceptions;
 
 @SuppressWarnings("serial")
 
