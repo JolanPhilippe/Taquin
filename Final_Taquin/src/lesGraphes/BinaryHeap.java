@@ -1,7 +1,7 @@
-package lesGraphes; // test du commit v3
+package lesGraphes; 
 import java.util.ArrayList;
 
-public abstract class  BinaryHeap<E> implements Heap<E> {
+public class  BinaryHeap<E> implements Heap<E> {
 	protected ArrayList<E> tas;
 	
 	public BinaryHeap() {
@@ -75,6 +75,18 @@ public abstract class  BinaryHeap<E> implements Heap<E> {
 		return pere(i);
 	}
 	
+	/** Recupere le pere d'un element a partir d'un indice
+	 * 
+	 * @param i l'indice dont on veut l'element pere
+	 * @return l'element pere de i
+	 * 
+	 * @throws ElementInexistantException si aucun element n'est present a l'indice i
+	 */
+	public E pere(int i) throws ElementInexistantException{
+		if (i==0) return getElem(0);
+		return getElem((i+1)/2-1);
+	}
+	
 	/** Recupere le fils gauche d'un element
 	 * 
 	 * @param e l'element
@@ -99,16 +111,6 @@ public abstract class  BinaryHeap<E> implements Heap<E> {
 		return getElem(2*i+2);
 	}
 	
-	/** Recupere le pere d'un element a partir d'un indice
-	 * 
-	 * @param i l'indice dont on veut l'element pere
-	 * @return l'element pere de i
-	 * 
-	 * @throws ElementInexistantException si aucun element n'est present a l'indice i
-	 */
-	public E pere(int i) throws ElementInexistantException{
-		return getElem(i/2);
-	}
 	
 	/** Recupere le fils gauche d'un element a partir d'un indice
 	 * 
@@ -150,7 +152,16 @@ public abstract class  BinaryHeap<E> implements Heap<E> {
 		return s;
 	}
 	
-	public abstract void add(E e); 
-	public abstract void remove(E e);
+	public void echanger(E e1, E e2){
+		
+	}
+	
+	public void add(E e) {
+		tas.add(tas.size(),e);
+	}
+	
+	public void remove(E e) {
+		tas.remove(e);
+	}
 	
 }

@@ -20,6 +20,8 @@ public class test_NormalHeap {
 		assertTrue(tas.filsGauche(3).equals("7"));
 		assertTrue(tas.getElem(3).equals("3"));
 		
+		assertTrue(tas.pere(1).equals("0"));
+		
 		for (int i=0; i<15; i=i+2)
 			tas.remove(""+i);
 		System.out.println(tas);
