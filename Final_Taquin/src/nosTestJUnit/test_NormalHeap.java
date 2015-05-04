@@ -10,6 +10,7 @@ public class test_NormalHeap {
 	
 	@Test
 	public void testCreer() throws ElementInexistantException{
+		
 		NormalHeap<String> tas = new NormalHeap<String>();
 		for (int i=0; i<15; i++)
 			tas.add(""+i);

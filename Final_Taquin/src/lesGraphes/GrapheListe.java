@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import Outils.Couple;
+
 public class GrapheListe<E> extends Graphe<E> {
 	private HashMap<E, ArrayList<E>> graphe;
 	

@@ -1,35 +1,34 @@
-package lesGraphes;
-
-
-/** Permet le regroupement de deux valeurs 
- * (principalement pour les indices doubles dans un tableau)
- * 
- */
-public class Couple <A,B>{
+package Outils;
+public class Triplet<A, B, C> {
 	/**Valeur 1 */
 	private A fst;
 	/**Valeur 2 */
 	private B snd;
+	/**Valeur 3*/
+	private C thd;
+	
 	
 	/** Creer un couple de valeurs entieres
 	 * 
 	 */
-	public Couple(){
+	public Triplet(){
 		this.fst=null;
 		this.snd=null;
+		this.thd=null;
 	}
 	
 	/** Creer un couple de valeurs entieres
 	 * 
 	 * @param x la valeur a mettre pour fst
 	 * @param y la valeur a mettre pour snd
-	 * 
+	 * @param z la valeur a mettre pour thd
 	 */
-	public Couple (A x, B y){
+	public Triplet (A x, B y, C z){
 		this.fst=x;
 		this.snd=y;
+		this.thd=z;
 	}
-	
+
 	/** Recupere la valeur de fst
 	 * 
 	 * @return valeur de fst
@@ -64,5 +63,23 @@ public class Couple <A,B>{
 	 */
 	public void setSnd(B y) {
 		this.snd = y;
+	}
+	
+	/** Recupere la valeur de thd
+	 * 
+	 * @return valeur de thd
+	 * 
+	 */
+	public C getThd() {
+		return this.thd;
+	}
+	
+	/** Definie la valeur de thd
+	 * 
+	 * @param z la valeur a mettre pour thd
+	 * 
+	 */
+	public void setThd(C z) {
+		this.thd = z;
 	}
 }

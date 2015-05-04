@@ -26,9 +26,9 @@ public abstract class Grille implements Comparable<Grille>{
 			File fic = new File(file);
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(fic);
-			this.setLigne(sc.nextInt());
-			this.setColonne(sc.nextInt());
-			this.setTable(new int[getLigne()][getColonne()]);
+			setLigne(sc.nextInt());
+			setColonne(sc.nextInt());
+			setTable(new int[getLigne()][getColonne()]);
 			for(int i=0; i<getLigne(); i++){
 				for(int j=0; j<getColonne(); j++){
 					getTable()[i][j] = sc.nextInt();

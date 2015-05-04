@@ -17,7 +17,6 @@ public class GrilleTaquin extends Grille{
 			setL0((int) getCouple(0).getFst());
 			setC0((int) getCouple(0).getSnd());
 		} catch (ValInexistanteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

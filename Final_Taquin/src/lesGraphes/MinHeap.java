@@ -20,7 +20,7 @@ public class MinHeap<E extends Comparable<E>> extends BinaryHeap<E>{
 			min=r;
 		}
 		if(min!=e){
-			echanger(e,min);
+			//echanger(e,min);
 			downHeap(min);
 		}
 	}
@@ -48,7 +48,7 @@ public class MinHeap<E extends Comparable<E>> extends BinaryHeap<E>{
 		this.tas.set(i,n);
 		try {
 			while(i>1 && this.pere(n).compareTo(this.getElem(i))>0){
-				echanger(this.getElem(i),this.pere(n));
+				//echanger(this.getElem(i),this.pere(n));
 				i=this.getIndex(this.pere(i));
 			}
 		} catch (ElementInexistantException e) {}
@@ -70,7 +70,7 @@ public class MinHeap<E extends Comparable<E>> extends BinaryHeap<E>{
 	 * @param e element a supprimer
 	 */
 	public void remove() throws ElementInexistantException, TasVideException{
-		echanger(this.getElem(this.getIndex(this.getHead())),this.getElem(this.size()));
+		//echanger(this.getElem(this.getIndex(this.getHead())),this.getElem(this.size()));
 		this.tas.remove(this.size());
 		downHeap(this.getHead());
 	}

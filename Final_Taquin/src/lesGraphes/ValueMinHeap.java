@@ -44,8 +44,18 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 	 * 
 	 * @return la racine du tas min
 	 */
-	public E getMin(){
-		return null;
+	public int getMin(){
+		int min=0;
+		for (int i=0;i<tas.size();i++){
+			try {
+				if(value.get(tas.get(i))> value.get(this.getElem(min)))
+					min = i;
+			} catch (ElementInexistantException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return min;
+		
 	}
 	
 	/** Recupere l'element le plus petit du tas et l'y enleve
@@ -56,6 +66,7 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 		E r = tas.get(0);
 		E e = tas.get(tas.size()-1);
 		tas.remove(tas.size()-1);
+		if (tas.size()==0) return r; 
 		tas.set(0,e);
 		int iE=0;
 		int iFils=0;
@@ -113,4 +124,37 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 		this.value = value;
 	}
 	
+	public int getMax(){
+		int max=0;
+		for (int i=0;i<tas.size();i++){
+			try {
+				if(value.get(tas.get(i))> value.get(this.getElem(max)))
+					max = i;
+			} catch (ElementInexistantException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return max;
+	}
+	
+	public void setKey(int i, E e) throws ErrorKeyValueException{
+		if(value.get(tas.get(i))<value.get(e)) 
+			throw new ErrorKeyValueException("Nouvelle clé plus grande que clé actuelle");
+		tas.set(i, e);
+		E pere;
+		try {
+			pere = pere(e);
+			int iPere = getIpere(i);
+			while(value.get(pere) > value.get(e)){
+				tas.set(i, pere);
+				tas.set(iPere, e);
+				i = getIpere(i);
+				iPere = getIpere(i);
+				pere = tas.get(iPere);
+			}
+		} catch (ElementInexistantException e1) {
+			System.out.println(e1.getMessage());
+		}
+		
+	}
 }
