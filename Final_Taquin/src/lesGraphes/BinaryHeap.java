@@ -2,6 +2,12 @@ package lesGraphes;
 import java.util.ArrayList;
 import lesExceptions.ElementInexistantException;
 
+/** Tas binaire
+ * 
+ * @author Jolan
+ *
+ * @param <E> type des elements qui vont constituer notre tas
+ */
 public class  BinaryHeap<E> implements Heap<E> {
 	/** Modelisation d'un tas par un tableau */
 	protected ArrayList<E> tas;

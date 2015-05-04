@@ -1,30 +1,32 @@
 package lesGraphes;
 
 import java.util.HashMap;
-
 import lesExceptions.ElementInexistantException;
+import lesExceptions.ErrorKeyValueException;
 
+/** Tas min valué par une fonction value (E - Integer)
+ * 
+ * @param <E> type des elements du tas
+ * 
+ * @author Jolan
+ */
 public class ValueMinHeap<E> extends BinaryHeap<E>{
+	/** Map qui fait office de fonction pour donner a chaque element du tas un valeur entiere */
 	private HashMap<E,Integer> value;
 		
-	/**
-	 * @param value
+	/** Creer un tas min valué
+	 * 
+	 * @param value la fonction qui associe a chaque element de type E, un entier
+	 * 
+	 * @author Jolan
 	 */
 	public ValueMinHeap(HashMap<E, Integer> value) {
 		super();
 		this.setValue(value);
 	}
 	
-	/**
-	 * @param value
-	 */
-	public ValueMinHeap() {
-		super();
-		this.setValue(new HashMap<E, Integer>());
-	}
-
 	/** Supprime un element au tas min
-	 * -> Le tas doit conserver ses proprietes de tas min
+	 * Le tas doit conserver ses proprietes de tas min
 	 * 
 	 * @param e element a supprimer
 	 */
@@ -34,33 +36,45 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 
 	/** Verifie que les fproprietes du tas min sont respectees
 	 * 
-	 * @return true si pere(e) > e, false sinon
+	 * @return true si pere(e) plus petit que e, false sinon
+	 * 
+	 * @author Jolan
 	 */
 	public boolean testValidite() {
-		return false;
+		for(E e : tas){
+			try {
+				if (value.get(pere(e))> value.get(e))
+					return false;
+			} catch (ElementInexistantException e1) {}
+		}
+		return true;
 	}
 	
-	/** Recupere l'element le plus petit du tas
+	/** Recupere l'element le plus gd du tas
 	 * 
-	 * @return la racine du tas min
+	 * @return l'element le plus grand par la fonction value (map assoc E - Integer)
+	 * 
+	 * @author Jolan
 	 */
-	public int getMin(){
-		int min=0;
+	public int getMax(){
+		int max=0;
 		for (int i=0;i<tas.size();i++){
 			try {
-				if(value.get(tas.get(i))> value.get(this.getElem(min)))
-					min = i;
+				if(value.get(tas.get(i))> value.get(this.getElem(max)))
+					max = i;
 			} catch (ElementInexistantException e) {
 				System.out.println(e.getMessage());
 			}
 		}
-		return min;
-		
+		return max;
 	}
+	
 	
 	/** Recupere l'element le plus petit du tas et l'y enleve
 	 * 
 	 * @return la tete du tas
+	 * 
+	 * @author Jolan
 	 */
 	public E extractMin(){
 		E r = tas.get(0);
@@ -92,9 +106,11 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 		
 
 	/** Ajoute un element au tas min
-	 * -> Le tas doit conserver ses proprietes de tas min
+	 * Le tas doit conserver ses proprietes de tas min
 	 * 
 	 * @param e element a ajouter
+	 * 
+	 * @author Jolan
 	 */
 	public void add(E e) {
 		super.add(e);
@@ -116,27 +132,34 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 		}
 	}
 
+	/** Recupere la fonction value
+	 * 
+	 * @return la Map value (E - Integer)
+	 * 
+	 * @author Jolan
+	 */
 	public HashMap<E,Integer> getValue() {
 		return value;
 	}
 
+	/** Fixe la fonction value par une map deja existante
+	 * 
+	 * @param value doit contenir tous les elements du tas
+	 * 
+	 * @author Jolan
+	 */
 	public void setValue(HashMap<E,Integer> value) {
 		this.value = value;
 	}
 	
-	public int getMax(){
-		int max=0;
-		for (int i=0;i<tas.size();i++){
-			try {
-				if(value.get(tas.get(i))> value.get(this.getElem(max)))
-					max = i;
-			} catch (ElementInexistantException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		return max;
-	}
-	
+	/** Modifie la valeur d'une clé dans le tas
+	 * 
+	 * @param i l'indice du noeud a modifier
+	 * @param e le nouvel element a mettre
+	 * @throws ErrorKeyValueException si la clé a une + gde valeur par value que la precedante
+	 * 
+	 * @author Jolan
+	 */
 	public void setKey(int i, E e) throws ErrorKeyValueException{
 		if(value.get(tas.get(i))<value.get(e)) 
 			throw new ErrorKeyValueException("Nouvelle clé plus grande que clé actuelle");

@@ -2,7 +2,7 @@ package nosTestJUnit;
 
 import static org.junit.Assert.*;
 import lesExceptions.ElementInexistantException;
-import lesGraphes.NormalHeap;
+import lesGraphes.BinaryHeap;
 
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ public class test_NormalHeap {
 	@Test
 	public void testCreer() throws ElementInexistantException{
 		
-		NormalHeap<String> tas = new NormalHeap<String>();
+		BinaryHeap<String> tas = new BinaryHeap<String>();
 		for (int i=0; i<15; i++)
 			tas.add(""+i);
 		System.out.println(tas);

@@ -3,7 +3,7 @@ package nosTestJUnit;
 import java.util.HashMap;
 
 import lesExceptions.ElementInexistantException;
-import lesGraphes.ErrorKeyValueException;
+import lesExceptions.ErrorKeyValueException;
 import lesGraphes.ValueMinHeap;
 
 import org.junit.Test;

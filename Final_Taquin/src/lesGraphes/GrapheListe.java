@@ -6,13 +6,30 @@ import java.util.TreeMap;
 
 import Outils.Couple;
 
+/** Graphe sous forme de liste de successeur 
+ *
+ * @param <E> type des elements du graphe
+ * 
+ * @author Jolan
+ */
 public class GrapheListe<E> extends Graphe<E> {
+	/** Table d'association element -> liste des successeurs*/
 	private HashMap<E, ArrayList<E>> graphe;
 	
+	/** Creer un nouveau GrapheListe
+	 * 
+	 * @author Jolan
+	 */
 	public GrapheListe(){
 		this.setGraphe(new HashMap<E,	ArrayList<E>>());
 	}
 	
+	/** Ajouter un nouveau sommet au graphe si celui-ci n'y est pas deja
+	 * 
+	 * @param s le sommet a ajouter
+	 * 
+	 * @author Jolan
+	 */
 	public void ajouterSommet(E s){
 		if(!graphe.containsKey(s)){
 			graphe.put(s, new ArrayList<E>());
@@ -24,6 +41,8 @@ public class GrapheListe<E> extends Graphe<E> {
   	* 
   	* @param u le sommet dont on veut recup les voisins
   	* @return la liste des voisins de u
+  	* 
+  	* @author Jolan
  	*/
 	public ArrayList<E> getAdjacent(E u) {
 		return graphe.get(u);
@@ -33,8 +52,11 @@ public class GrapheListe<E> extends Graphe<E> {
 	 * 
 	 * @param a sommet depart
 	 * @param b sommet arrivé
+	 * 
+	 * @author Jolan
 	 */
 	public void ajouterArc(E a, E b) {
+		if(!graphe.containsKey(a)) this.ajouterSommet(a);
 		ArrayList<E> liste = getAdjacent(a);
 		if(!liste.contains(b))
 			liste.add(b);
@@ -47,6 +69,7 @@ public class GrapheListe<E> extends Graphe<E> {
 	 * @param b sommet arrivé
 	 * @return le graphe sans l'arc (a,b)
 	 * 
+	 * @author Jolan
 	 */
 	public Graphe<E> supprimerArc(E a, E b) {
 		ArrayList<E> liste = getAdjacent(a);
@@ -57,7 +80,9 @@ public class GrapheListe<E> extends Graphe<E> {
 	/** Parcours en largeur le graphe a partir d'un sommet source
 	 * 
 	 * @param s le sommet source
-	 * @return un couple de Map: (fst -> Map<> pere) (snd -> Map<> dist)
+	 * @return  la distance de chaque element avec le sommet source
+	 * 
+	 * @author Jolan
 	 */
 	public HashMap<E,Integer> parcoursLarg(E s) {				
 		HashMap<E,Integer> dist = new HashMap<E,Integer>();	//dist: tab[1..n] d'entier, distance des sommets du sommet source
@@ -91,7 +116,9 @@ public class GrapheListe<E> extends Graphe<E> {
 	/** Parcours en profondeur le graphe a partir d'un sommet source
 	 * 
 	 * @param s le sommet source
-	 * @return un triplet de Map: (fst -> Map<> pere) (snd -> Map<> deb) (thd -> Map<> fin)
+	 * @return un couple de Map: (rencontre du sommet avec la source) (fin traitement du sommet)
+	 * 
+	 * @author Jolan
 	 */
 	public Couple<TreeMap<E,Integer>,TreeMap<E,Integer>> parcoursProf() {
 		TreeMap<E,Integer> deb = new TreeMap<E,Integer>();		//deb:  tab[1..n] du temps avant d'atteindre le sommet
@@ -116,12 +143,13 @@ public class GrapheListe<E> extends Graphe<E> {
 	/** Methode recursive auxiliaire au parcours en profondeur
 	 * 
 	 * @param u l'element a visiter
-	 * @param etat la map des etat des sommets
 	 * @param temps le compteur temportel
 	 * @param deb la map des temps "debut"
 	 * @param fin la map des temps "fin"
-	 * @param pere la map des peres 
+	 * 
 	 * @return le temps actuel a la fin du sous-programme Visiter
+	 * 
+	 * @author Jolan
 	 */
 	public int Visiter(E u, int temps, TreeMap<E, Integer> deb, TreeMap<E, Integer> fin){
 		etats.put(u, "atteint");
@@ -139,24 +167,40 @@ public class GrapheListe<E> extends Graphe<E> {
 		return temps;
 	}
 
+	/** Creer un affichage pour le graphe
+	 * 
+	 * @return une chaine de caractere composée de chaque element, et de ses successeurs
+	 * 
+	 * @author Jolan
+	 */
 	public String toString(){
 		String s ="";
-		for (E k: getGraphe().keySet()){
+		for (E k: graphe.keySet()){
 			s+="sommet:\n"+k+"\nles succ:\n";
-			if(getGraphe().get(k)==null) s+="nulitude\n";
-			else{
-				for (E v : getGraphe().get(k))
-					s+=v+"\n";
-				s+="\n";
-			}
+			for (E v : graphe.get(k))
+				s+=v+"\n";
+			s+="\n";
+			
 		}
 		return s;				
 	}
 
+	/** Recupere les listes de successeurs des elements
+	 *
+	 * @return table d'association (element -> liste successeur)
+	 * 
+	 * @author Jolan
+	 */
 	public HashMap<E, ArrayList<E>> getGraphe() {
 		return graphe;
 	}
 
+	/** Fixe la liste de successeurs
+	 * 
+	 * @param HashMap une table d'association (element -> liste successeur)
+	 * 
+	 * @author Jolan
+	 */
 	public void setGraphe(HashMap<E, ArrayList<E>> HashMap) {
 		this.graphe = HashMap;
 	}

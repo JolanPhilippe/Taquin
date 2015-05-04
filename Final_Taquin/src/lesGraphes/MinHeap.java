@@ -55,8 +55,8 @@ public class MinHeap<E extends Comparable<E>> extends BinaryHeap<E>{
 	}
 	
 	/** Ajoute un element au tas min
-	 * -> Le tas doit conserver ses proprietes de tas min
-	 * 
+	 * Le tas doit conserver ses proprietes de tas min
+	 *
 	 * @param e element a ajouter
 	 * @throws ElementInexistantException 
 	 */
@@ -89,7 +89,7 @@ public class MinHeap<E extends Comparable<E>> extends BinaryHeap<E>{
 	
 	/** Verifie que les proprietes du tas min sont respectees
 	 * 
-	 * @return true si pere(e) > e, false sinon
+	 * @return true si pere(e) plus gd que e, false sinon
 	 * @throws ElementInexistantException 
 	 */
 	public boolean testValidite() throws ElementInexistantException {
