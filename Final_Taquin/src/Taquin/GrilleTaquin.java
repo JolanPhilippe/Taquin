@@ -348,6 +348,7 @@ public class GrilleTaquin extends Grille{
 				}
 			}
 		}
+		tableRange[l-1][c-1]=0;
 		range.setTable(tableRange);
 		return range;
 	}

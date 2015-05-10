@@ -9,7 +9,7 @@ import lesExceptions.ElementInexistantException;
  *
  * @param <E> type des elements qui vont constituer notre tas
  */
-public class  BinaryHeap<E> extends Structure<E> implements Heap<E>  {
+public class  BinaryHeap<E> implements Structure<E>, Heap<E>  {
 	/** Modelisation d'un tas par un tableau */
 	protected ArrayList<E> tas;
 	
@@ -239,6 +239,12 @@ public class  BinaryHeap<E> extends Structure<E> implements Heap<E>  {
 		E e = this.getElem(0);
 		this.remove(e);
 		return e;
+	}
+	
+	public boolean contains(E e) {
+		for (E e1 : tas)
+			if (e.equals(e1)) return true;
+		return false;
 	}
 	
 }

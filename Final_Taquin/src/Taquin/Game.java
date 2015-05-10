@@ -74,7 +74,8 @@ public class Game {
 	 * @since 1.0
 	 */
 	public static void main (String[]args){
-		GrilleTaquin gt = initGame("C:\\Users\\Jolan\\Desktop\\taquin.txt");
+		/*GrilleTaquin gt = initGame("C:\\Users\\Jolan\\Desktop\\taquin.txt");*/
+		GrilleTaquin gt = initGame(3);
 		Date d = new Date(); System.out.println(d);
 		System.out.println("####\n"+gt+"\n####");
 		try {

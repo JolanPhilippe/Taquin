@@ -4,14 +4,73 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import nosStructures.ValueMinHeap;
+import nosStructures.*;
 import Outils.Couple;
+import lesExceptions.ElementInexistantException;
 import lesExceptions.ValInexistanteException;
 import lesGraphes.GrapheListe;
 
 public class resTaquin {
 	
+	static LinkedList<GrilleTaquin> Marque = new LinkedList<GrilleTaquin> ();
+	static HashMap<GrilleTaquin,Character> CharPred = new HashMap<GrilleTaquin,Character> ();
+	static HashMap<GrilleTaquin,GrilleTaquin> Peres = new HashMap<GrilleTaquin,GrilleTaquin>();
+	static Value<GrilleTaquin> val = new Value<GrilleTaquin>();
+	static Structure<GrilleTaquin> ATraite;
 	static GrilleTaquin ref;
+	
+	public static void ResTaquinB (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
+		GrilleTaquin ref = taquin.taquinRange();
+		GrilleTaquin init = taquin;
+		switch (typeRes){ //Definition de ATraite en fonction du mode de resolution
+			case 1: //pile
+				ATraite = new Pile<GrilleTaquin>(); break;
+			case 2: //file
+				ATraite = new File<GrilleTaquin>(); break;
+			case 31: case 32: case 33: //tas (file de priorité)
+				ATraite = new ValueMinHeap<GrilleTaquin>(val); break;
+			default: 
+				throw new ValInexistanteException("Ce mode de resolution est impossible") ;
+		}
+		Marque.add(init); ATraite.add(init); CharPred.put(taquin, 'z');
+		boolean test = true;
+		while(test){
+			try {
+				GrilleTaquin pos = ATraite.extract();
+				char c = CharPred.get(pos);
+				for (GrilleTaquin p : pos.successeur(c).keySet()){
+					if(!Marque.contains(p)){
+						System.out.println(c);
+						CharPred.put(p,pos.compZero(p));
+						Marque.add(p); 
+						switch (typeRes){ //si ATraite est un tas : necessaire d'enregister sa valeur
+							case 31: 
+								val.add(p,manhattan(p,ref)); 
+								break;
+							case 32: 
+								val.add(p,pmanhattan(p,ref,init));
+								break;
+							case 33: 
+								val.add(p, euclide(p,ref));
+								break;
+							default:
+								/*cas ou on n'est pas sur une structure de tas, 
+								donc pas besoin de d'ajouter une valeur a val*/
+						}
+						ATraite.add(p);
+						if(!Peres.containsKey(p)) Peres.put(p, pos);
+					}
+					
+					if (p.equals(ref)){ref=p; test = false;}
+				}
+			} catch (ElementInexistantException e1) {System.out.println(e1);} //cas ou ATraite est vide
+			
+		}
+
+		String sol = getChemin(ref);
+		System.out.println(sol);
+	}
+	
 	
 	/** Resolution avec creation d'un graphe annexe
 	 * 
@@ -176,12 +235,12 @@ public class resTaquin {
 	 */
 	public static void ResTaquinBTas (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
 		GrilleTaquin ref = Game.ref;
+		GrilleTaquin init = taquin;
 		LinkedList<GrilleTaquin> Marque = new LinkedList<GrilleTaquin> ();
-		HashMap<GrilleTaquin,Integer> valeurs = new HashMap<GrilleTaquin,Integer>();
+		Value<GrilleTaquin> valeurs = new Value<GrilleTaquin>();
 		HashMap<GrilleTaquin,Character> CharPred = new HashMap<GrilleTaquin,Character> ();
 		ValueMinHeap<GrilleTaquin> ATraite = new ValueMinHeap<GrilleTaquin> (valeurs);
 		HashMap<GrilleTaquin,GrilleTaquin> lesPeres = new HashMap<GrilleTaquin,GrilleTaquin>();
-		int dist=0;
 		Marque.add(taquin);
 		ATraite.add(taquin);
 		CharPred.put(taquin, 'z');
@@ -195,16 +254,16 @@ public class resTaquin {
 				for (GrilleTaquin p : pos.successeur(c).keySet()){
 					boolean testContains=false;for(GrilleTaquin t: Marque) if (t.equals(p)) testContains=true;
 					if(!testContains){		
-						CharPred.put(p, c);
+						CharPred.put(p, pos.compZero(p));
 						switch (typeRes){
 							case 1:
-								valeurs.put(p,manhattan(p,ref));
+								valeurs.add(p,manhattan(p,ref));
 								break;
 							case 2:	
-								valeurs.put(p,manhattan(p,ref)*dist); 
+								valeurs.add(p,pmanhattan(p,ref,init)); 
 								break;
 							case 3:
-								valeurs.put(p,maFct(p,ref)); 
+								valeurs.add(p,euclide(p,ref)); 
 								break;
 							default: throw new ValInexistanteException("Ce mode de resolution est impossible");
 						}
@@ -214,25 +273,16 @@ public class resTaquin {
 							lesPeres.put(p, pos);
 					}
 				}
-			dist++;
 		}
-		
-		ArrayList<GrilleTaquin> succ = new ArrayList<GrilleTaquin>();
-		GrilleTaquin pere = ref;
-		while(pere!=null){
-			succ.add(0,pere);
-			pere = lesPeres.get(pere);
-		}
-		String sol="";
-		for (int i=0; i<succ.size()-1;i++){	
-			GrilleTaquin ini=succ.get(i);
-			GrilleTaquin nxt=succ.get(i+1);
-			sol+=(ini.compZero(nxt));
-		}
+		String sol = getChemin(ref);
 		System.out.println(sol);
 	}
 
-	private static int manhattan(GrilleTaquin p, GrilleTaquin ref) {
+	public static double pmanhattan(GrilleTaquin p, GrilleTaquin ref1, GrilleTaquin ref2) {
+		return manhattan(p, ref1) + manhattan(p, ref2);
+	}
+
+	public static double manhattan(GrilleTaquin p, GrilleTaquin ref) {
 		int[][] t = p.getTable();
 		int dist=0;
 		for (int i = 0; i<t.length; i++){
@@ -250,15 +300,36 @@ public class resTaquin {
 		return dist;
 	}
 	
-	private static int maFct(GrilleTaquin p, GrilleTaquin ref2) {
-		int[][] t1 = p.getTable();
-		int[][] t2 = p.getTable();
-		int c=0;
-		for (int i = 0; i<t1.length; i++)
-			for (int j = 0; j<t1[i].length; j++)
-				if (t1[i][j]!=t2[i][j]) c++;
-		return c;
+	public static double euclide(GrilleTaquin p, GrilleTaquin ref2) {
+		int[][] t = p.getTable();
+		int dist=0;
+		for (int i = 0; i<t.length; i++)
+			for (int j = 0; j<t[i].length; j++){
+				try {
+					Couple<Integer, Integer> c = ref.getCouple(t[j][j]);
+					int x = c.getFst();
+					int y = c.getSnd();
+					dist += Math.sqrt((i-x)*(i-x) + (j-y)*(j-y)) ;
+				} catch (ValInexistanteException e) {}
+			}
+		return dist;
 	}
 	
+	public static String getChemin(GrilleTaquin finaleGT){
+		ArrayList<GrilleTaquin> succ = new ArrayList<GrilleTaquin>();
+		GrilleTaquin pere = finaleGT;
+		while(pere!=null){
+			succ.add(0,pere);
+			pere = Peres.get(pere);
+		}
+		String sol="";
+		for (int i=0; i<succ.size()-1;i++){	
+			GrilleTaquin ini=succ.get(i);
+			GrilleTaquin nxt=succ.get(i+1);
+			sol+=(ini.compZero(nxt));
+		}
+		return sol;
+	}
+
 
 }

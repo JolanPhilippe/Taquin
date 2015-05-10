@@ -2,9 +2,10 @@ package nosStructures;
 
 import java.util.LinkedList;
 
+import Taquin.GrilleTaquin;
 import lesExceptions.ElementInexistantException;
 
-public class Pile<E> extends Structure<E>{
+public class Pile<E> implements Structure<E>{
 	LinkedList<E> pile;
 	
 	public Pile() {
@@ -30,6 +31,12 @@ public class Pile<E> extends Structure<E>{
 
 	public E extract() throws ElementInexistantException {
 		return pile.removeFirst();
+	}
+
+	public boolean contains(E e) {
+		for (E e1 : pile)
+			if (e.equals(e1)) return true;
+		return false;
 	}
 
 }

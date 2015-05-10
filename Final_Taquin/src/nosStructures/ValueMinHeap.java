@@ -13,7 +13,7 @@ import lesExceptions.ErrorKeyValueException;
  */
 public class ValueMinHeap<E> extends BinaryHeap<E> {
 	/** Map qui fait office de fonction pour donner a chaque element du tas un valeur entiere */
-	private HashMap<E,Integer> value;
+	private Value<E> value;
 		
 	/** Creer un tas min valué
 	 * 
@@ -21,19 +21,12 @@ public class ValueMinHeap<E> extends BinaryHeap<E> {
 	 * 
 	 * @author Jolan
 	 */
-	public ValueMinHeap(HashMap<E, Integer> value) {
+	public ValueMinHeap(Value<E> value) {
 		super();
 		this.setValue(value);
 	}
 	
-	/** Supprime un element au tas min
-	 * Le tas doit conserver ses proprietes de tas min
-	 * 
-	 * @param e element a supprimer
-	 */
-	public void remove(E e) {
-		
-	}
+	
 
 	/** Verifie que les fproprietes du tas min sont respectees
 	 * 
@@ -141,18 +134,18 @@ public class ValueMinHeap<E> extends BinaryHeap<E> {
 	 * 
 	 * @author Jolan
 	 */
-	public HashMap<E,Integer> getValue() {
+	public Value<E> getValue() {
 		return value;
 	}
 
 	/** Fixe la fonction value par une map deja existante
 	 * 
-	 * @param value doit contenir tous les elements du tas
+	 * @param value2 doit contenir tous les elements du tas
 	 * 
 	 * @author Jolan
 	 */
-	public void setValue(HashMap<E,Integer> value) {
-		this.value = value;
+	public void setValue(Value<E> value2) {
+		this.value = value2;
 	}
 	
 	/** Modifie la valeur d'une clé dans le tas
