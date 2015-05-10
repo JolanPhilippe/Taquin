@@ -1,4 +1,5 @@
-package lesGraphes;
+package nosStructures;
+
 
 public class MaxHeap<E extends Comparable<E>> extends BinaryHeap<E>{
 	

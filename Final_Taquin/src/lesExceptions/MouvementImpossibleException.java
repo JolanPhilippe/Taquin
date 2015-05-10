@@ -3,9 +3,6 @@ package lesExceptions;
 @SuppressWarnings("serial")
 
 /** Exception dans le cas ou un mouvement n'est pas possible
- * 
- * @author Jolan
- * @since 1.0
  */
 public class MouvementImpossibleException extends Exception{
 	/** Constructeur par defaut de l'Exception

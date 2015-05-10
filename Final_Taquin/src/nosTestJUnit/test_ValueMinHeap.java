@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import lesExceptions.ElementInexistantException;
 import lesExceptions.ErrorKeyValueException;
-import lesGraphes.ValueMinHeap;
+import nosStructures.ValueMinHeap;
 
 import org.junit.Test;
 
@@ -32,7 +32,7 @@ public class test_ValueMinHeap {
 		for(int i=0; i<50; i=i+4)
 			t.add(""+i);
 		System.out.println(t+"\n");
-		System.out.println(t.getElem(t.getMax()));
+		System.out.println(t.getElem(t.getIMax()));
 	}
 	
 	@Test

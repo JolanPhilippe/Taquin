@@ -10,6 +10,7 @@ public class Triplet<A, B, C> {
 	
 	/** Creer un couple de valeurs entieres
 	 * 
+	 * @author Jolan
 	 */
 	public Triplet(){
 		this.fst=null;
@@ -22,6 +23,8 @@ public class Triplet<A, B, C> {
 	 * @param x la valeur a mettre pour fst
 	 * @param y la valeur a mettre pour snd
 	 * @param z la valeur a mettre pour thd
+	 * 
+	 * @author Jolan
 	 */
 	public Triplet (A x, B y, C z){
 		this.fst=x;
@@ -33,6 +36,7 @@ public class Triplet<A, B, C> {
 	 * 
 	 * @return valeur de fst
 	 * 
+	 * @author Jolan
 	 */
 	public A getFst() {
 		return fst;
@@ -42,6 +46,7 @@ public class Triplet<A, B, C> {
 	 * 
 	 * @param x la valeur a mettre pour fst
 	 * 
+	 * @author Jolan
 	 */
 	public void setFst(A x) {
 		this.fst = x;
@@ -51,6 +56,7 @@ public class Triplet<A, B, C> {
 	 * 
 	 * @return valeur de snd
 	 * 
+	 * @author Jolan
 	 */
 	public B getSnd() {
 		return snd;
@@ -60,6 +66,7 @@ public class Triplet<A, B, C> {
 	 * 
 	 * @param y la valeur a mettre pour snd
 	 * 
+	 * @author Jolan
 	 */
 	public void setSnd(B y) {
 		this.snd = y;
@@ -69,6 +76,7 @@ public class Triplet<A, B, C> {
 	 * 
 	 * @return valeur de thd
 	 * 
+	 * @author Jolan
 	 */
 	public C getThd() {
 		return this.thd;
@@ -78,6 +86,7 @@ public class Triplet<A, B, C> {
 	 * 
 	 * @param z la valeur a mettre pour thd
 	 * 
+	 * @author Jolan
 	 */
 	public void setThd(C z) {
 		this.thd = z;

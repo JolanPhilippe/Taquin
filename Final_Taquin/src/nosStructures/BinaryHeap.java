@@ -1,5 +1,6 @@
-package lesGraphes; 
+package nosStructures; 
 import java.util.ArrayList;
+
 import lesExceptions.ElementInexistantException;
 
 /** Tas binaire
@@ -8,7 +9,7 @@ import lesExceptions.ElementInexistantException;
  *
  * @param <E> type des elements qui vont constituer notre tas
  */
-public class  BinaryHeap<E> implements Heap<E> {
+public class  BinaryHeap<E> extends Structure<E> implements Heap<E>  {
 	/** Modelisation d'un tas par un tableau */
 	protected ArrayList<E> tas;
 	
@@ -222,6 +223,22 @@ public class  BinaryHeap<E> implements Heap<E> {
 	 */
 	public void remove(E e) {
 		tas.remove(e);
+	}
+
+	public boolean isEmpty() {
+		return tas.isEmpty();
+	}
+
+	public void add(E e, int lim) {
+		if(this.size()<lim){
+			this.add(e);
+		}
+	}
+
+	public E extract() throws ElementInexistantException {
+		E e = this.getElem(0);
+		this.remove(e);
+		return e;
 	}
 	
 }

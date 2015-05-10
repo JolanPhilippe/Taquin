@@ -2,6 +2,7 @@ package Taquin;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Outils.Couple;
 import lesExceptions.MouvementImpossibleException;
 import lesExceptions.QuitterException;
 import lesExceptions.ValInexistanteException;

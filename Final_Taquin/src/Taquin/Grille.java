@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import Outils.Couple;
 import lesExceptions.ValInexistanteException;
 
 public abstract class Grille implements Comparable<Grille>{

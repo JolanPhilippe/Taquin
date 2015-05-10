@@ -1,6 +1,7 @@
-package lesGraphes;
+package nosStructures;
 
 import java.util.HashMap;
+
 import lesExceptions.ElementInexistantException;
 import lesExceptions.ErrorKeyValueException;
 
@@ -10,7 +11,7 @@ import lesExceptions.ErrorKeyValueException;
  * 
  * @author Jolan
  */
-public class ValueMinHeap<E> extends BinaryHeap<E>{
+public class ValueMinHeap<E> extends BinaryHeap<E> {
 	/** Map qui fait office de fonction pour donner a chaque element du tas un valeur entiere */
 	private HashMap<E,Integer> value;
 		
@@ -56,15 +57,17 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 	 * 
 	 * @author Jolan
 	 */
-	public int getMax(){
+	public int getIMax(){
 		int max=0;
-		for (int i=0;i<tas.size();i++){
-			try {
-				if(value.get(tas.get(i))> value.get(this.getElem(max)))
+		try {
+			E maxVal = this.getElem(max);
+			for (int i=0;i<tas.size();i++)
+				if(value.get(tas.get(i))> value.get(maxVal)){
 					max = i;
-			} catch (ElementInexistantException e) {
+					maxVal = this.getElem(max);
+				}
+		} catch (ElementInexistantException e) {
 				System.out.println(e.getMessage());
-			}
 		}
 		return max;
 	}
@@ -76,7 +79,7 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 	 * 
 	 * @author Jolan
 	 */
-	public E extractMin(){
+	public E extract(){
 		E r = tas.get(0);
 		E e = tas.get(tas.size()-1);
 		tas.remove(tas.size()-1);
@@ -178,6 +181,18 @@ public class ValueMinHeap<E> extends BinaryHeap<E>{
 		} catch (ElementInexistantException e1) {
 			System.out.println(e1.getMessage());
 		}
-		
+	}
+	
+	public void add(E e, int lim) {
+		if(this.size()<lim){
+			this.add(e);
+		}else{
+			int i = this.getIMax();
+			try {
+				E max = this.getElem(i);
+				if(value.get(max)>value.get(e)) this.setKey(i, e);
+			} catch (ElementInexistantException | ErrorKeyValueException e1) {}
+			
+		}
 	}
 }

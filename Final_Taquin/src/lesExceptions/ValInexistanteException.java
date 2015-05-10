@@ -3,9 +3,6 @@ package lesExceptions;
 
 @SuppressWarnings("serial")
 /** Exception dans le cas ou une valeur n'est pas dans l'ensemble demandé (tableau)
- * 
- * @author Jolan
- * @since 1.0
  */
 public class ValInexistanteException extends Exception{
 	/** Constructeur par defaut de l'Exception

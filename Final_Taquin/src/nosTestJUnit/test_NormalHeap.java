@@ -2,7 +2,7 @@ package nosTestJUnit;
 
 import static org.junit.Assert.*;
 import lesExceptions.ElementInexistantException;
-import lesGraphes.BinaryHeap;
+import nosStructures.BinaryHeap;
 
 import org.junit.Test;
 

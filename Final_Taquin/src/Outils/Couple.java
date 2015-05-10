@@ -4,6 +4,7 @@ package Outils;
 /** Permet le regroupement de deux valeurs 
  * (principalement pour les indices doubles dans un tableau)
  * 
+ * @author Jolan
  */
 public class Couple <A,B>{
 	/**Valeur 1 */
@@ -13,6 +14,7 @@ public class Couple <A,B>{
 	
 	/** Creer un couple de valeurs entieres
 	 * 
+	 * @author Jolan
 	 */
 	public Couple(){
 		this.fst=null;
@@ -24,6 +26,7 @@ public class Couple <A,B>{
 	 * @param x la valeur a mettre pour fst
 	 * @param y la valeur a mettre pour snd
 	 * 
+	 * @author Jolan
 	 */
 	public Couple (A x, B y){
 		this.fst=x;
@@ -34,6 +37,7 @@ public class Couple <A,B>{
 	 * 
 	 * @return valeur de fst
 	 * 
+	 * @author Jolan
 	 */
 	public A getFst() {
 		return fst;
@@ -52,6 +56,7 @@ public class Couple <A,B>{
 	 * 
 	 * @return valeur de snd
 	 * 
+	 * @author Jolan
 	 */
 	public B getSnd() {
 		return snd;
@@ -61,6 +66,7 @@ public class Couple <A,B>{
 	 * 
 	 * @param y la valeur a mettre pour snd
 	 * 
+	 * @author Jolan
 	 */
 	public void setSnd(B y) {
 		this.snd = y;

@@ -1,6 +1,8 @@
 package lesExceptions;
 
 @SuppressWarnings("serial")
+/** Exception dans le cas ou il est demandé de quitter le jeu
+ */
 public class QuitterException extends Exception {
 
 	/** Constructeur par defaut de l'Exception

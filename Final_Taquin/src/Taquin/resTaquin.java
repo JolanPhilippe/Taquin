@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import nosStructures.ValueMinHeap;
+import Outils.Couple;
 import lesExceptions.ValInexistanteException;
 import lesGraphes.GrapheListe;
-import lesGraphes.ValueMinHeap;
 
 public class resTaquin {
 	
@@ -186,7 +187,7 @@ public class resTaquin {
 		CharPred.put(taquin, 'z');
 		boolean testContinu = true;
 		while (testContinu){
-			GrilleTaquin pos = ATraite.extractMin();
+			GrilleTaquin pos = ATraite.extract();
 			char c = CharPred.get(pos);
 			if (pos.equals(ref)) 
 				{testContinu=false; ref=pos;}

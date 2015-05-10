@@ -1,4 +1,4 @@
-package lesGraphes;
+package nosStructures;
 
 import lesExceptions.ElementInexistantException;
 import lesExceptions.TasVideException;
