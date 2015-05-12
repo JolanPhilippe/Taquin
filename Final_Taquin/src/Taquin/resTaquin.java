@@ -12,7 +12,7 @@ import lesGraphes.GrapheListe;
 
 public class resTaquin {
 	
-	static LinkedList<GrilleTaquin> Marque = new LinkedList<GrilleTaquin> ();
+	static File<GrilleTaquin> Marque = new File<GrilleTaquin> ();
 	static HashMap<GrilleTaquin,Character> CharPred = new HashMap<GrilleTaquin,Character> ();
 	static HashMap<GrilleTaquin,GrilleTaquin> Peres = new HashMap<GrilleTaquin,GrilleTaquin>();
 	static Value<GrilleTaquin> val = new Value<GrilleTaquin>();
@@ -40,7 +40,6 @@ public class resTaquin {
 				char c = CharPred.get(pos);
 				for (GrilleTaquin p : pos.successeur(c).keySet()){
 					if(!Marque.contains(p)){
-						System.out.println(c);
 						CharPred.put(p,pos.compZero(p));
 						Marque.add(p); 
 						switch (typeRes){ //si ATraite est un tas : necessaire d'enregister sa valeur
@@ -269,8 +268,8 @@ public class resTaquin {
 						}
 						ATraite.add(p);
 						Marque.add(p);
-						if(!lesPeres.containsKey(p))
-							lesPeres.put(p, pos);
+						if(!Peres.containsKey(p))
+							Peres.put(p, pos);
 					}
 				}
 		}
