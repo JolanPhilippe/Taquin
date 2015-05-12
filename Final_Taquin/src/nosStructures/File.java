@@ -2,10 +2,8 @@ package nosStructures;
 
 import java.util.LinkedList;
 
-import lesExceptions.ElementInexistantException;
-
 public class File<E> implements Structure<E> {
-	LinkedList<E> fifo;
+	public LinkedList<E> fifo;
 
 	public File(){
 		fifo = new LinkedList<E>();
@@ -28,7 +26,7 @@ public class File<E> implements Structure<E> {
 			add(e);
 	}
 
-	public E extract() throws ElementInexistantException {
+	public E extract(){
 		return fifo.removeFirst();
 	}
 	

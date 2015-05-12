@@ -139,8 +139,8 @@ public abstract class Grille implements Comparable<Grille>{
 
 	public boolean equals(Grille gt){
 		if(gt.ligne != this.ligne || gt.colonne != this.colonne) return false;
-		for (int i = 0; i<getLigne(); i++)
-			for (int j = 0; j<getColonne(); j++)
+		for (int i = 0; i<ligne; i++)
+			for (int j = 0; j<colonne; j++)
 				if (this.table[i][j] != gt.table[i][j]) return false;
 		return true;
 	}

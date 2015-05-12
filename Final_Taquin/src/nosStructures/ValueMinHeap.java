@@ -83,8 +83,6 @@ public class ValueMinHeap<E> extends BinaryHeap<E> {
 		try {
 			if (value.get(filsDroit(0))<value.get(filsGauche(0))) iFils=2;
 			else iFils=1;
-
-			
 		} catch (ElementInexistantException e1) {}
 		try {
 			E fils = getElem(iFils); 

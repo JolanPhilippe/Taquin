@@ -6,72 +6,20 @@ import java.util.LinkedList;
 
 import nosStructures.*;
 import Outils.Couple;
-import lesExceptions.ElementInexistantException;
 import lesExceptions.ValInexistanteException;
 import lesGraphes.GrapheListe;
 
 public class resTaquin {
 	
-	static File<GrilleTaquin> Marque = new File<GrilleTaquin> ();
+	static LinkedList<GrilleTaquin> Marque;
 	static HashMap<GrilleTaquin,Character> CharPred = new HashMap<GrilleTaquin,Character> ();
 	static HashMap<GrilleTaquin,GrilleTaquin> Peres = new HashMap<GrilleTaquin,GrilleTaquin>();
-	static Value<GrilleTaquin> val = new Value<GrilleTaquin>();
+	static Value<GrilleTaquin> values = new Value<GrilleTaquin>();
 	static Structure<GrilleTaquin> ATraite;
 	static GrilleTaquin ref;
 	
-	public static void ResTaquinB (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
-		GrilleTaquin ref = taquin.taquinRange();
-		GrilleTaquin init = taquin;
-		switch (typeRes){ //Definition de ATraite en fonction du mode de resolution
-			case 1: //pile
-				ATraite = new Pile<GrilleTaquin>(); break;
-			case 2: //file
-				ATraite = new File<GrilleTaquin>(); break;
-			case 31: case 32: case 33: //tas (file de priorité)
-				ATraite = new ValueMinHeap<GrilleTaquin>(val); break;
-			default: 
-				throw new ValInexistanteException("Ce mode de resolution est impossible") ;
-		}
-		Marque.add(init); ATraite.add(init); CharPred.put(taquin, 'z');
-		boolean test = true;
-		while(test){
-			try {
-				GrilleTaquin pos = ATraite.extract();
-				char c = CharPred.get(pos);
-				for (GrilleTaquin p : pos.successeur(c).keySet()){
-					if(!Marque.contains(p)){
-						CharPred.put(p,pos.compZero(p));
-						Marque.add(p); 
-						switch (typeRes){ //si ATraite est un tas : necessaire d'enregister sa valeur
-							case 31: 
-								val.add(p,manhattan(p,ref)); 
-								break;
-							case 32: 
-								val.add(p,pmanhattan(p,ref,init));
-								break;
-							case 33: 
-								val.add(p, euclide(p,ref));
-								break;
-							default:
-								/*cas ou on n'est pas sur une structure de tas, 
-								donc pas besoin de d'ajouter une valeur a val*/
-						}
-						ATraite.add(p);
-						if(!Peres.containsKey(p)) Peres.put(p, pos);
-					}
-					
-					if (p.equals(ref)){ref=p; test = false;}
-				}
-			} catch (ElementInexistantException e1) {System.out.println(e1);} //cas ou ATraite est vide
-			
-		}
-
-		String sol = getChemin(ref);
-		System.out.println(sol);
-	}
 	
-	
-	/** Resolution avec creation d'un graphe annexe
+/** Resolution avec creation d'un graphe annexe
 	 * 
 	 * @param gt
 	 * @param typeRes 1: parcours en largeur | 2: parcours en profondeur | 3: tas par Manhattan | 4: tas prof+Manhattan
@@ -232,14 +180,21 @@ public class resTaquin {
 	 * @param typeRes 1: manhattan | 2: manhattan + profondeur | 3: ma fonction
 	 * @throws ValInexistanteException
 	 */
-	public static void ResTaquinBTas (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
-		GrilleTaquin ref = Game.ref;
+	public static void ResTaquinB (GrilleTaquin taquin, int typeRes) throws ValInexistanteException{
+		GrilleTaquin ref = taquin.sort();
 		GrilleTaquin init = taquin;
-		LinkedList<GrilleTaquin> Marque = new LinkedList<GrilleTaquin> ();
-		Value<GrilleTaquin> valeurs = new Value<GrilleTaquin>();
-		HashMap<GrilleTaquin,Character> CharPred = new HashMap<GrilleTaquin,Character> ();
-		ValueMinHeap<GrilleTaquin> ATraite = new ValueMinHeap<GrilleTaquin> (valeurs);
-		HashMap<GrilleTaquin,GrilleTaquin> lesPeres = new HashMap<GrilleTaquin,GrilleTaquin>();
+		Marque = new LinkedList<GrilleTaquin> ();
+		//ATraite = new ValueMinHeap<GrilleTaquin> (values);
+		switch (typeRes){ //Definition de ATraite en fonction du mode de resolution
+		case 1: //pile
+			ATraite = new Pile<GrilleTaquin>(); break;
+		case 2: //file
+			ATraite = new File<GrilleTaquin>(); break;
+		case 31: case 32: case 33: //tas (file de priorité)
+			ATraite = new ValueMinHeap<GrilleTaquin>(values); break;
+		default: 
+			throw new ValInexistanteException("Ce mode de resolution est impossible") ;
+	}
 		Marque.add(taquin);
 		ATraite.add(taquin);
 		CharPred.put(taquin, 'z');
@@ -249,29 +204,30 @@ public class resTaquin {
 			char c = CharPred.get(pos);
 			if (pos.equals(ref)) 
 				{testContinu=false; ref=pos;}
-			else
+			else{
 				for (GrilleTaquin p : pos.successeur(c).keySet()){
 					boolean testContains=false;for(GrilleTaquin t: Marque) if (t.equals(p)) testContains=true;
-					if(!testContains){		
+					if(!testContains){						
 						CharPred.put(p, pos.compZero(p));
 						switch (typeRes){
-							case 1:
-								valeurs.add(p,manhattan(p,ref));
+							case 31:
+								values.add(p,manhattan(p,ref));
 								break;
-							case 2:	
-								valeurs.add(p,pmanhattan(p,ref,init)); 
+							case 32:	
+								values.add(p,pmanhattan(p,ref,init)); 
 								break;
-							case 3:
-								valeurs.add(p,euclide(p,ref)); 
+							case 33:
+								values.add(p,euclide(p,ref)); 
 								break;
-							default: throw new ValInexistanteException("Ce mode de resolution est impossible");
+							default: 
 						}
-						ATraite.add(p);
+						ATraite.add(p,7);
 						Marque.add(p);
 						if(!Peres.containsKey(p))
 							Peres.put(p, pos);
 					}
 				}
+			}
 		}
 		String sol = getChemin(ref);
 		System.out.println(sol);
@@ -299,7 +255,7 @@ public class resTaquin {
 		return dist;
 	}
 	
-	public static double euclide(GrilleTaquin p, GrilleTaquin ref2) {
+	public static double euclide(GrilleTaquin p, GrilleTaquin ref) {
 		int[][] t = p.getTable();
 		int dist=0;
 		for (int i = 0; i<t.length; i++)

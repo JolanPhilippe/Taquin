@@ -316,7 +316,7 @@ public class GrilleTaquin extends Grille{
 	}
 	
 	public boolean equals (GrilleTaquin gt){
-		return super.equals(gt) && l0==gt.l0 && c0==gt.c0;
+		return super.equals(gt);
 	}
 
 	public int compareTo(Grille arg0) {
@@ -331,7 +331,7 @@ public class GrilleTaquin extends Grille{
 	 * @param t La grille de taquin à ranger
 	 * @return La grille de taquin correctement rangée
 	 */
-	public GrilleTaquin taquinRange(){
+	public GrilleTaquin sort(){
 		int l = this.getLigne();
 		int c = this.getColonne();
 		int[][] table = this.getTable();

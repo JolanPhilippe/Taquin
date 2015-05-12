@@ -55,7 +55,7 @@ public class Game {
 	
 	public static GrilleTaquin initGame(String fichier){
 		GrilleTaquin gt = new GrilleTaquin(fichier);
-		ref = gt.taquinRange();
+		ref = gt.sort();
 		return gt;
 	}
 	
@@ -74,17 +74,17 @@ public class Game {
 	 * @since 1.0
 	 */
 	public static void main (String[]args){
-	//	for(int i = 0;i<100;i++){
-		GrilleTaquin gt = initGame("C:\\Users\\Jolan\\Desktop\\taquin.txt");
-		//GrilleTaquin gt = initGame(3);
-		//Date d = new Date(); System.out.println(d);
+		//for(int i = 0;i<100;i++){
+		//GrilleTaquin gt = initGame("C:\\Users\\Jolan\\Desktop\\taquin.txt");
+		GrilleTaquin gt = initGame(2);
+		Date d = new Date(); System.out.println(d);
 		System.out.println("####\n"+gt+"\n####");
 		try {
-			resTaquin.ResTaquinB(gt,31);
+			resTaquin.ResTaquinB(gt,33);
 		} catch (ValInexistanteException e) {
 			System.out.println(e.getMessage());
 		}
-		//d = new Date(); System.out.println(d);
+		d = new Date(); System.out.println(d);
 		//}
 	}
 	

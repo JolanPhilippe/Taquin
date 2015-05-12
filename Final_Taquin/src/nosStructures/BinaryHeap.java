@@ -235,9 +235,15 @@ public class  BinaryHeap<E> implements Structure<E>, Heap<E>  {
 		}
 	}
 
-	public E extract() throws ElementInexistantException {
-		E e = this.getElem(0);
-		this.remove(e);
+	public E extract(){
+		E e = null;
+		try {
+			e = this.getElem(0);
+			this.remove(e);
+			return e;
+		} catch (ElementInexistantException e1) {
+			System.out.println("TAS VIDE");
+		}
 		return e;
 	}
 	

@@ -29,7 +29,7 @@ public class Pile<E> implements Structure<E>{
 			add(e);
 	}
 
-	public E extract() throws ElementInexistantException {
+	public E extract(){
 		return pile.removeFirst();
 	}
 
