@@ -1,4 +1,7 @@
 package Jeu;
+import lesExceptions.MouvementImpossibleException;
+import lesExceptions.QuitterException;
+import Outils.Tools;
 import Taquin.*;
 
 public class Main {
@@ -71,17 +74,24 @@ public class Main {
 			}
 			Play.playTaquin(gt2);
 			break;
-		
-		case "-cal":
-			//int d1 = Integer.parseInt(args[4]);
-			// appeller l'algorithme passe dans args[5] a partir du fichier dans args[6]
-			// le delai de resolution ne doit pas depasser delai (args[4])
-			break;
-			
-		case "-anime":
-			//int d2 = Integer.parseInt(args[4]);
-			// appeller l'algorithme passe dans args[5] a partir du fichier dans args[6]
-			// le delai de resolution ne doit pas depasser delai (args[4])
+		case "-cal": case "-anime":
+			int delai = Integer.parseInt(args[1]);
+			int mode=0;
+			switch(args[2]){
+				case "pile": mode = 1; break;
+				case "file": mode = 2; break;
+				case "manhattan": mode = 31; break;
+				case "pmanhattan": mode = 32; break;
+				case "choix": mode = 33; break;
+				default:
+			}
+			String f2 = args[3];
+			GrilleTaquin gt = new GrilleTaquin(f2);
+			String sol = Solve.SolveTaquin(gt, mode, delai);
+			sol = Tools.elagage(sol, gt.getLigne(), gt.getColonne());
+			try {
+				gt.playMove(sol, args[0].equals("-anime"));
+			} catch (MouvementImpossibleException | QuitterException e) {}
 			break;
 			
 		case "-stat":

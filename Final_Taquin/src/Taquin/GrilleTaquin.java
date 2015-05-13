@@ -1,4 +1,5 @@
 package Taquin;
+import java.awt.Event;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -169,6 +170,33 @@ public class GrilleTaquin extends Grille{
 		}
 		getTable()[getL0()][getC0()]=0;
 		return this;
+	}
+	
+	/**Déplacement dans un taquin
+	*	
+	* @param String qui contient une suite de mouvement à effectuer
+	* @throws MouvementImpossibleException si le mouvement n'est pas possible
+	* @throws QuitterException
+	* @author Anthony
+	* @return String
+	* @since 1.1
+	*/
+	
+	public String playMove(String s1, boolean dynamique) throws MouvementImpossibleException, QuitterException{
+		String s2 = "";
+		char deplacement;
+		for (int i=0; i<s1.length(); i++){
+			GrilleTaquin avant = this.copyOf();
+			deplacement = s1.charAt(i);
+			if(dynamique)
+				System.out.print((char)Event.ESCAPE + "7");//Commande d'initialisation à l'affichage dynamique
+			this.playMove(deplacement);
+			if(dynamique)
+				System.out.print((char)Event.ESCAPE + "8");//Commande finale de l'affichage dynamique
+			System.out.println(this);
+			if (!this.equals(avant)){s2=s2+deplacement;}
+		}
+		return s2;
 	}
 	
 	/** Melange un tableau a deux dimensions

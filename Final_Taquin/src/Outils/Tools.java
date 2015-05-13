@@ -8,7 +8,8 @@ import java.util.TreeMap;
 
 public class Tools {
 
-	static Scanner sc = new Scanner(System.in);
+	static Scanner sc = new Scanner (System.in);
+
 	/** Fait faire un choix d'un nombre entier a l'utilisateur entre min et max
 	 * 
 	 * @param min entier minimal pouvant etre choisi
@@ -51,18 +52,142 @@ public class Tools {
 		return n;
 	}
 	
-	public static String elagage(String s1) {
-		String s2 = s1;
-		s2.replaceAll("NS", ""); 
-		s2.replaceAll("SN", "");
-		s2.replaceAll("EO", "");
-		s2.replaceAll("OE", "");
-		s2.replaceAll("NOSENOSENOSE", "");
-		s2.replaceAll("ONESONESONES", "");
-		if(!s1.equals(s2)) return elagage(s2);
-		else return s2;
-	}
+	/**Programme d'élagage des séquences de mouvement
+	 * 
+	 * @author Anthony
+	 * @param String (Suite de mouvement) , int (hauteur) , l (largeur)
+	 * @return String (chaine de caractère effectuant les mêmes déplacements mais de façon optimale)
+	 * @since 1.0
+	 */
 
+	public static String elagage(String s1, int h, int l) {
+		String s2 = s1;
+		int p = 2*h+2*l-5;
+		int min = min(h,l);
+		for(int i=1; i<h; i++){
+			s2= s2.replaceAll(multChar("NS",i), "");
+			s2= s2.replaceAll(multChar("SN",i), "");
+		}
+		for(int j=1; j<l; j++){
+			s2= s2.replaceAll(multChar("OE",j), "");
+			s2= s2.replaceAll(multChar("EO",j), "");
+		}
+		for(int m=1; m<min; m++){
+			s2= s2.replaceAll(multString(multCharString("OSENOSENOSEN",h,l),p),"");
+			s2= s2.replaceAll(multString(multCharString("ENOSENOSENOS",h,l),p),"");
+			s2= s2.replaceAll(multString(multCharString("ESONESONESON",h,l),p),"");
+			s2= s2.replaceAll(multString(multCharString("ONESONESONES",h,l),p),"");
+			s2= s2.replaceAll(multString(multCharString("NESONESONESO",h,l),p),"");
+			s2= s2.replaceAll(multString(multCharString("NOSENOSENOSE",h,l),p),"");
+			s2= s2.replaceAll(multString(multCharString("SENOSENOSENO",h,l),p),"");
+			s2= s2.replaceAll(multString(multCharString("SONESONESONE",h,l),p),"");
+			s2= s2.replaceAll(multCharString("ONESONES",h,l),multCharString("NOSE",h,l));
+			s2= s2.replaceAll(multCharString("NOSENOSE",h,l),multCharString("ONES",h,l));
+			s2= s2.replaceAll(multCharString("NESONESO",h,l),multCharString("ENOS",h,l));
+			s2= s2.replaceAll(multCharString("ENOSENOS",h,l),multCharString("NESO",h,l));
+			s2= s2.replaceAll(multCharString("ESONESON",h,l),multCharString("SENO",h,l));
+			s2= s2.replaceAll(multCharString("SONESONE",h,l),multCharString("OSEN",h,l));
+			s2= s2.replaceAll(multCharString("OSENOSEN",h,l),multCharString("SONE",h,l));
+			s2= s2.replaceAll(multCharString("SENOSENO",h,l),multCharString("ESON",h,l));
+			h--;
+			l--;
+		}
+		if(!s1.equals(s2)) {
+			return elagage(s2, h, l);
+		}else{
+			return s2;
+		}
+	}
+	
+	/**Programme de multiplication de chaine de caractères 
+	 * 
+	 * @author Anthony
+	 * @param String, int (périmètre)
+	 * @return String (la même chaine multipliée par le perimetre d'un taquin qu'il soit carrée ou rectangulaire )
+	 * @since 1.0
+	 */
+	
+	public static String multString (String s, int x){
+		String c = "";
+		for (int i = 0; i<x; i++)
+			c +=s;
+		return c;
+	}
+	
+	/** Multiplication de caractères
+	 * 
+	 * @author Anthony
+	 * @param String, int (hauteur), l (largeur)
+	 * @return String
+	 * @since 1.0
+	 */
+	
+	public static String multCharString (String s, int h, int l){
+		String mouv = "";
+		char c;
+			for (int j=0; j<s.length(); j++){
+				c = s.charAt(j);
+				if (c=='N'||c=='S'){
+					for (int r=1; r<h; r++)
+						mouv += c;
+				}
+				if (c=='O'||c=='E'){
+					for (int r=1; r<l; r++)
+						mouv += c;
+				}
+			}
+		return mouv;	
+	}
+	
+	/** Multiplication de caractères
+	 * 
+	 * @author Anthony
+	 * @param String, int
+	 * @return String
+	 * @since 1.0
+	 */
+	
+	public static String multChar (String s, int x){
+		String mouv = "";
+		char c;
+		for (int j=0; j<s.length(); j++){
+				c = s.charAt(j);
+				if (c=='N'||c=='S'){
+					for (int r=0; r<x; r++)
+						mouv += c;
+				}
+				if (c=='O'||c=='E'){
+					for (int r=0; r<x; r++)
+						mouv += c;
+				}
+		}
+		return mouv;	
+	}
+	
+	/** Minimum entre deux entiers
+	 * 
+	 * @author Anthony
+	 * @param int, int
+	 * @return int 
+	 * @since 1.0
+	 */
+	
+	public static int min(int a, int b){
+		if(a<b)
+			return a;
+		else
+			return b;
+	}
+	
+
+	/** Convertit une map en un fichier HTML
+	 * 
+	 * @author Jolan
+	 * @param Treemap
+	 * @since 1.0
+	 */
+	
+	
 	public static void toHtml(TreeMap<String, String> tab){
 		String html = "<html lang=\"fr\" xml:lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\">\n"
 				+ "<head>\n"
@@ -105,14 +230,16 @@ public class Tools {
 		} catch (IOException e) {}	
 	}
 	
+	
+	/** Main
+	 * 
+	 * @author Anthony
+	 * @since 1.0
+	 */
+	
 	public static void main(String[]args){
-		TreeMap<String,String> tab = new TreeMap<String,String>();
-		tab.put("J", "swag");
-		tab.put("M", " pas swag");
-		tab.put("A", "swag");
-		tab.put("T", "swag");
-		tab.put("B", "swag");
-		toHtml(tab);
+		//System.out.println (elagage("NNNSSEOOENSOENSONNNEEOO",4,2));
+		System.out.println("ESENOSSENNOSOSENENOSSONEESONOSEENNOSOSEENONESSOONEESOONEENOSOSENENOSOSENENOSSENNOSSONENESSONENOSSONESONENESSONESOONESONENOSSENOSENNESONESOSONEENOOSEENOSOSENNOSSENNESSOONESENOSONENESOSONEESOONESENOOSEENNOSESOONEES");
 	}
 	
 }
