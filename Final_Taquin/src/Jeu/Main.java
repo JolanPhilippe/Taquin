@@ -52,26 +52,34 @@ public class Main {
 			
 		case "-sol":
 			String f1 = args[1];
-			GrilleTaquin gt = new GrilleTaquin(f1);
-			if(gt.containsSolution())
+			GrilleTaquin gt1 = new GrilleTaquin(f1);
+			if(gt1.containsSolution())
 				System.out.println("Le fichier " + f1 + " contient une solution");
 			else
 				System.out.println("Le fichier " + f1 + " ne contient pas de soluion");
 			break;
 			
 		case "-joue":
-			String f = args[1];
-			Play.playTaquin(f);
+			GrilleTaquin gt2;
+			switch (args[1]){
+			case "-r":
+				gt2 = Play.initPlay();
+				break;
+			default :
+				String f = args[1];
+				gt2 = Play.initPlay(f);
+			}
+			Play.playTaquin(gt2);
 			break;
 		
 		case "-cal":
-			int d1 = Integer.parseInt(args[4]);
+			//int d1 = Integer.parseInt(args[4]);
 			// appeller l'algorithme passe dans args[5] a partir du fichier dans args[6]
 			// le delai de resolution ne doit pas depasser delai (args[4])
 			break;
 			
 		case "-anime":
-			int d2 = Integer.parseInt(args[4]);
+			//int d2 = Integer.parseInt(args[4]);
 			// appeller l'algorithme passe dans args[5] a partir du fichier dans args[6]
 			// le delai de resolution ne doit pas depasser delai (args[4])
 			break;

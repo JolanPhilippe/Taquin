@@ -24,8 +24,12 @@ public class Solve {
 	/** Jeu de taquin auquel on veut arriver*/	
 	static GrilleTaquin ref;
 	
+	public static void SolveTaquin(String fichier){
+		GrilleTaquin gt = new GrilleTaquin(fichier);
+		ref = gt.sort();
+	}
 	
-/** Resolution avec creation d'un graphe annexe
+	/** Resolution avec creation d'un graphe annexe
 	 * 
 	 * @param gt
 	 * @param typeRes 1: parcours en largeur | 2: parcours en profondeur | 3: tas par Manhattan | 4: tas prof+Manhattan

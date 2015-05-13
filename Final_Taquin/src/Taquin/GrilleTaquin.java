@@ -17,9 +17,7 @@ public class GrilleTaquin extends Grille{
 		try {
 			setL0((int) getCouple(0).getFst());
 			setC0((int) getCouple(0).getSnd());
-		} catch (ValInexistanteException e) {
-			e.printStackTrace();
-		}
+		} catch (ValInexistanteException e) {System.out.println("Fichier taquin non valide");}
 	}
 	
 	public GrilleTaquin(int ligne, int colonne) {
@@ -134,7 +132,7 @@ public class GrilleTaquin extends Grille{
 		switch (c){
 			case 'N': case 'n': 
 				if (getL0()==0 || getTable()[getL0()-1][getC0()] == -1)
-					throw new MouvementImpossibleException ();
+					throw new MouvementImpossibleException ("Mouvement impossible");
 				else{
 					getTable()[getL0()][getC0()]=getTable()[getL0()-1][getC0()];
 					setL0(getL0() - 1);
@@ -142,7 +140,7 @@ public class GrilleTaquin extends Grille{
 				break;
 			case 'S': case 's': 
 				if (getL0()== getTable().length-1 || getTable() [getL0()+1][getC0()] == -1)
-					throw new MouvementImpossibleException ();
+					throw new MouvementImpossibleException ("Mouvement impossible");
 				else{
 					getTable()[getL0()][getC0()]=getTable()[getL0()+1][getC0()];
 					setL0(getL0() + 1);
@@ -150,7 +148,7 @@ public class GrilleTaquin extends Grille{
 				break;
 			case 'O': case 'o': case 'W': case 'w':
 				if (getC0()==0 || getTable() [getL0()][getC0()-1] == -1)
-					throw new MouvementImpossibleException ();
+					throw new MouvementImpossibleException ("Mouvement impossible");
 				else{
 					getTable()[getL0()][getC0()]=getTable()[getL0()][getC0()-1];
 					setC0(getC0() - 1);
@@ -158,7 +156,7 @@ public class GrilleTaquin extends Grille{
 				break;
 			case 'E': case 'e': 
 				if (getC0()== getTable().length-1 || getTable() [getL0()][getC0()+1] == -1)
-					throw new MouvementImpossibleException ();
+					throw new MouvementImpossibleException ("Mouvement impossible");
 				else{
 					getTable()[getL0()][getC0()]=getTable()[getL0()][getC0()+1];
 					setC0(getC0() + 1);

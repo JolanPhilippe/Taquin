@@ -1,9 +1,7 @@
 package Jeu;
-import java.util.Date;
 import java.util.Scanner;
 
 import Taquin.*;
-import lesExceptions.ValInexistanteException;
 
 public class Game {
 	
@@ -20,6 +18,7 @@ public class Game {
 	public static GrilleTaquin initGame(String fichier){
 		GrilleTaquin gt = new GrilleTaquin(fichier);
 		ref = gt.sort();
+		System.out.println(gt);
 		return gt;
 	}
 	
@@ -27,8 +26,10 @@ public class Game {
 		GrilleTaquin gt = new GrilleTaquin(ligne,col);
 		ref = gt.copyOf();
 		gt.mixTab();
+		System.out.println(gt);
 		return gt;
 	}
+	
 	
 	/** programme executable
 	 * 
@@ -37,7 +38,7 @@ public class Game {
 	 * @author Jolan Anthony Thibault Benoit
 	 * @since 1.0
 	 */
-	public static void main (String[]args){
+	/*public static void main (String[]args){
 		Date d1 = new Date();
 		//for(int i = 0;i<100;i++){
 		GrilleTaquin gt = initGame("C:\\Users\\Jolan\\Desktop\\taquin.txt");
@@ -49,13 +50,13 @@ public class Game {
 		} catch (ValInexistanteException e) {
 			System.out.println(e.getMessage());
 			}
-		//d = new Date(); System.out.println(d);*/
+		//d = new Date(); System.out.println(d);
 		//}
 		Date d2 = new Date();
 		long s1 = d1.getTime()/1000;
 		long s2 = d2.getTime()/1000;
 		System.out.println("S'est resolu en "+(s2-s1)+"s");
-	}
+	}*/
 	
 	
 	
