@@ -4,6 +4,12 @@ import lesExceptions.QuitterException;
 import Outils.Tools;
 import Taquin.*;
 
+/** Programme principal MAIN
+ * 
+ * @param arguments
+ * @author Jolan & Benoit
+ */
+
 public class Main {
 
 	public static void main(String[] args){

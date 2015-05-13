@@ -224,17 +224,34 @@ public class  BinaryHeap<E> implements Structure<E>, Heap<E>  {
 	public void remove(E e) {
 		tas.remove(e);
 	}
+	
+	/** vérification tas vide
+	 * 
+	 * @return boolean
+	 * @author Jolans
+	 */
 
 	public boolean isEmpty() {
 		return tas.isEmpty();
 	}
 
+	/** Ajout
+	 * 
+	 * @param e element a ajouter, int limite
+	 * @author Jolan
+	 */
+	
 	public void add(E e, int lim) {
 		if(this.size()<lim){
 			this.add(e);
 		}
 	}
 
+	/** Extraction du première élément
+	 * 
+	 * @author Jolan
+	 */
+	
 	public E extract(){
 		E e = null;
 		try {
@@ -246,6 +263,13 @@ public class  BinaryHeap<E> implements Structure<E>, Heap<E>  {
 		}
 		return e;
 	}
+	
+	/** Vérifie si un element e appartient au tas
+	 * 
+	 * @param element e
+	 * @return boolean
+	 * @author Jolan
+	 */
 	
 	public boolean contains(E e) {
 		for (E e1 : tas)

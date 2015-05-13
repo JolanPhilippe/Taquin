@@ -54,10 +54,11 @@ public class Tools {
 	
 	/**Programme d'élagage des séquences de mouvement
 	 * 
-	 * @author Anthony
-	 * @param String (Suite de mouvement) , int (hauteur) , l (largeur)
+	 * @param String Suite de mouvement
+	 * @param int hauteur
+	 * @param int largeur
 	 * @return String (chaine de caractère effectuant les mêmes déplacements mais de façon optimale)
-	 * @since 1.0
+	 * @author Anthony
 	 */
 
 	public static String elagage(String s1, int h, int l) {
@@ -101,10 +102,10 @@ public class Tools {
 	
 	/**Programme de multiplication de chaine de caractères 
 	 * 
+	 * @param s un String contenant un suite de mouvement
+	 * @param int périmètre
+	 * @return String la même chaine multipliée par le perimetre d'un taquin qu'il soit carrée ou rectangulaire
 	 * @author Anthony
-	 * @param String, int (périmètre)
-	 * @return String (la même chaine multipliée par le perimetre d'un taquin qu'il soit carrée ou rectangulaire )
-	 * @since 1.0
 	 */
 	
 	public static String multString (String s, int x){
@@ -116,10 +117,11 @@ public class Tools {
 	
 	/** Multiplication de caractères
 	 * 
-	 * @author Anthony
-	 * @param String, int (hauteur), l (largeur)
+	 * @param s suite de mouvement
+	 * @param h hauteur
+	 * @param l largeur
 	 * @return String
-	 * @since 1.0
+	 * @author Anthony
 	 */
 	
 	public static String multCharString (String s, int h, int l){
@@ -141,10 +143,10 @@ public class Tools {
 	
 	/** Multiplication de caractères
 	 * 
+	 * @param s chaine de caractere représentant une suite de mouvement
+	 * @param x int
+	 * @return la chaine avec la multiplication de ses caractères
 	 * @author Anthony
-	 * @param String, int
-	 * @return String
-	 * @since 1.0
 	 */
 	
 	public static String multChar (String s, int x){
@@ -166,10 +168,10 @@ public class Tools {
 	
 	/** Minimum entre deux entiers
 	 * 
+	 * @param a entier
+	 * @param b entier
+	 * @return minimum des deux entiers
 	 * @author Anthony
-	 * @param int, int
-	 * @return int 
-	 * @since 1.0
 	 */
 	
 	public static int min(int a, int b){
@@ -182,12 +184,9 @@ public class Tools {
 
 	/** Convertit une map en un fichier HTML
 	 * 
+	 * @param tab Treemap
 	 * @author Jolan
-	 * @param Treemap
-	 * @since 1.0
 	 */
-	
-	
 	public static void toHtml(TreeMap<String, String> tab){
 		String html = "<html lang=\"fr\" xml:lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\">\n"
 				+ "<head>\n"
@@ -229,17 +228,4 @@ public class Tools {
 			fichierCSS.close();
 		} catch (IOException e) {}	
 	}
-	
-	
-	/** Main
-	 * 
-	 * @author Anthony
-	 * @since 1.0
-	 */
-	
-	public static void main(String[]args){
-		//System.out.println (elagage("NNNSSEOOENSOENSONNNEEOO",4,2));
-		System.out.println("ESENOSSENNOSOSENENOSSONEESONOSEENNOSOSEENONESSOONEESOONEENOSOSENENOSOSENENOSSENNOSSONENESSONENOSSONESONENESSONESOONESONENOSSENOSENNESONESOSONEENOOSEENOSOSENNOSSENNESSOONESENOSONENESOSONEESOONESENOOSEENNOSESOONEES");
-	}
-	
 }

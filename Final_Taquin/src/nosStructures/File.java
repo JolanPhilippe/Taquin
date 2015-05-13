@@ -3,6 +3,7 @@ package nosStructures;
 import java.util.LinkedList;
 
 public class File<E> implements Structure<E> {
+	
 	public LinkedList<E> fifo;
 
 	public File(){

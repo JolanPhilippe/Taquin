@@ -7,11 +7,19 @@ import Outils.Couple;
 import lesExceptions.ValInexistanteException;
 
 public abstract class Grille implements Comparable<Grille>{
-	
+	/** Nb de lignes dans la table */
 	private int ligne;
+	/** Nb de colonnes sur la table*/
 	private int colonne;
+	/** Tableau d'entiers [ligne][colonne]*/
 	private int[][] table;
 	
+	/** Creer une copie distincte en memoire de this
+	 * 
+	 * @return une copie de this
+	 * 
+	 * @author Jolan
+	 */
 	public abstract Grille copyOf();
 	public abstract boolean win();
 	
@@ -20,16 +28,15 @@ public abstract class Grille implements Comparable<Grille>{
 	 * @param file contenant les données de jeu
 	 * 
 	 * @author Jolan
-	 * @since 1.0
 	 */
 	public Grille(String file){
 		try{
 			File fic = new File(file);
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(fic);
-			setLigne(sc.nextInt());
-			setColonne(sc.nextInt());
-			setTable(new int[getLigne()][getColonne()]);
+			this.ligne=sc.nextInt();
+			this.colonne=sc.nextInt();
+			table=new int[getLigne()][getColonne()];
 			for(int i=0; i<getLigne(); i++){
 				for(int j=0; j<getColonne(); j++){
 					getTable()[i][j] = sc.nextInt();
@@ -40,10 +47,17 @@ public abstract class Grille implements Comparable<Grille>{
 		}
 	}
 	
+	/** Creer une Grille d'entier de taille n*m
+	 * 
+	 * @param ligne nb de ligne dans le tableau
+	 * @param colonne nb de colonne dans le tableau
+	 * 
+	 * @author Jolan
+	 */
 	public Grille(int ligne, int colonne) {
-		this.setLigne(ligne);
-		this.setColonne(colonne);
-		this.setTable(new int[ligne][colonne]);
+		this.ligne=ligne;
+		this.colonne=colonne;
+		this.table=new int[ligne][colonne];
 		int nb_cases = ligne * colonne;
 		int nb_count=1;
 		for (int i=0; i<ligne; i++)
@@ -61,9 +75,8 @@ public abstract class Grille implements Comparable<Grille>{
 	* @throws ValInexistanteException si n n'est pas dans la grille
 	*
 	* @author Jolan
-	* @since 1.0
 	*/
-	public Couple<Integer,Integer> getCouple (int n)throws ValInexistanteException{
+	public Couple<Integer,Integer> getCouple (int n) throws ValInexistanteException{
 		for (int i=0; i<getLigne();i++)
 			for (int j=0; j<getColonne();j++)
 				if (getTable()[i][j]==n){
@@ -76,7 +89,6 @@ public abstract class Grille implements Comparable<Grille>{
 	 * 
 	 * @author Jolan
 	 * @return un string contenant l'affichage de la grille
-	 * @since 1.0
 	 */
 	public String toString(){
 		String chaine="";
@@ -103,7 +115,6 @@ public abstract class Grille implements Comparable<Grille>{
 	* @param grille une grille dont on veux melanger les valeurs	
 	*
 	* @author Jolan
-	* @since 1.0
 	*/
 	public void mixTab(){
 		for (int k=0; k<3; k++) //On effectue 3x le melange pour avoir une grille la plus aleatoire possible
@@ -118,25 +129,52 @@ public abstract class Grille implements Comparable<Grille>{
 					getTable()[c_ligne][c_colonne] = tmp;
 				}	
 	}
+	/** Recupere le nb de colonne de la Grille
+	 * 
+	 * @return this.colonne
+	 * 
+	 * @author Jolan
+	 */
 	public int getColonne() {
 		return colonne;
 	}
-	public void setColonne(int colonne) {
-		this.colonne = colonne;
-	}
+	
+	/** Recupere le nb de ligne de la Grille
+	 * 
+	 * @return this.ligne
+	 * 
+	 * @author Jolan
+	 */
 	public int getLigne() {
 		return ligne;
 	}
-	public void setLigne(int ligne) {
-		this.ligne = ligne;
-	}
+
+	/** Recupere la table d'une grille
+	 * 
+	 * @return the table
+	 * 
+	 * @author Jolan
+	 */
 	public int[][] getTable() {
 		return table;
 	}
+	/** Fixe la table d'une grille
+	 * 
+	 * @param table the table to set
+	 * 
+	 * @author Jolan
+	 */
 	public void setTable(int[][] table) {
 		this.table = table;
 	}
-
+	
+	/** Test l'egalité du contenu de 2 grilles
+	 * 
+	 * @param gt la grille avec laquelle on compare
+	 * @return vrai si elles sont egales, faux sinon
+	 * 
+	 * @author Jolan
+	 */
 	public boolean equals(Grille gt){
 		if(gt.ligne != this.ligne || gt.colonne != this.colonne) return false;
 		for (int i = 0; i<ligne; i++)

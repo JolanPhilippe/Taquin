@@ -36,10 +36,10 @@ public class Solve {
 	 * 
 	 * @param gt La grilleTaquin a resoudre
 	 * @param typeRes 1: profondeur | 2: largeur | 31: manhattan | 32: prof + manhattan | 33: ma fonction
+	 * @param delai temps en s maximum pour l'exe de la methode
 	 * @throws ValInexistanteException
 	 * 
 	 * @author Jolan
-	 * @param delai 
 	 */
 	public static String ResTaquinB (GrilleTaquin taquin, int typeRes, int delai) throws ValInexistanteException{
 		Date d1= new Date();
@@ -104,11 +104,23 @@ public class Solve {
 		}
 		return sol;
 	}
+	
+	/** 
+	 * 
+	 * @author Jolan
+	 */
 
 	public static double pmanhattan(GrilleTaquin p, GrilleTaquin ref1, GrilleTaquin ref2) {
 		return manhattan(p, ref1) + manhattan(p, ref2);
 	}
 
+	/** Calcul une distance de manhatttan entre deux grilles
+	 * 
+	 * @param GrilleTaquin, GrilleTaquin
+	 * @return double
+	 * @author Jolan
+	 */
+	
 	public static double manhattan(GrilleTaquin p, GrilleTaquin ref) {
 		int[][] t = p.getTable();
 		int dist=0;

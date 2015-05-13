@@ -1,6 +1,5 @@
 package Jeu;
 import java.util.Scanner;
-
 import Taquin.*;
 
 public class Game {
@@ -12,9 +11,9 @@ public class Game {
 	 * 
 	 * @param fichier
 	 * @return une instance de GrilleTaquin correspondant au fichier
-	 * 
 	 * @author Benoit
 	 */
+	
 	public static GrilleTaquin initGame(String fichier){
 		GrilleTaquin gt = new GrilleTaquin(fichier);
 		ref = gt.sort();
@@ -22,12 +21,14 @@ public class Game {
 		return gt;
 	}
 	
-	/**
+	/**Initialisation du jeu
 	 * 
 	 * @param ligne
 	 * @param col
-	 * @return
+	 * @return GrilleTaquin
+	 * @author Jolan
 	 */
+	
 	public static GrilleTaquin initGame(int ligne, int col){
 		GrilleTaquin gt = new GrilleTaquin(ligne,col);
 		ref = gt.copyOf();
@@ -35,5 +36,4 @@ public class Game {
 		System.out.println(gt);
 		return gt;
 	}
-	
 }

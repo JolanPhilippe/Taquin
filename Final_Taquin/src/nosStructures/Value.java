@@ -17,6 +17,4 @@ public class Value <E>{
 		if (!value.containsKey(e)) return 0;
 		return value.get(e);
 	}
-	
-	
 }

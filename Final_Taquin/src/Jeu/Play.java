@@ -11,6 +11,12 @@ public class Play {
 
 	static Scanner sc = new Scanner (System.in);
 	
+	/** Jouer au Taquin
+	 * 
+	 * @param GrilleTaquin
+	 * @author Anthony & Jolan
+	 */
+	
 	public static void playTaquin(GrilleTaquin grille){
 		boolean win=grille.win();
 		int nb_coup=0;
@@ -33,6 +39,13 @@ public class Play {
 		}
 	}
 	
+	/** Initialise un jeu de Taquin
+	 * 
+	 * @param fichier
+	 * @return GrilleTaquin
+	 * @author Jolan & Anthony
+	 */
+	
 	public static GrilleTaquin initPlay(){
 		System.out.println("Choisir nb ligne (>= 1)");
 		int ligne = Tools.choiceInt(1);
@@ -42,6 +55,13 @@ public class Play {
 		GrilleTaquin grille = Game.initGame(ligne, col);
 		return grille;
 	}
+	
+	/** Initialise un jeu de Taquin a partir d'un fichier
+	 * 
+	 * @param fichier
+	 * @return une instance de GrilleTaquin correspondant au fichier
+	 * @author Benoit
+	 */
 	
 	public static GrilleTaquin initPlay(String fichier){
 		GrilleTaquin grille = Game.initGame(fichier);

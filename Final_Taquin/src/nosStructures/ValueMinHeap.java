@@ -172,6 +172,12 @@ public class ValueMinHeap<E> extends BinaryHeap<E> {
 		}
 	}
 	
+	/** Ajouter
+	 * 
+	 * @param e (element à ajouter), int (limite de taille)
+	 * @author Jolan
+	 */
+	
 	public void add(E e, int lim) {
 		if(this.size()<lim){
 			this.add(e);

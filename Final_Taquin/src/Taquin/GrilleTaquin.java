@@ -9,10 +9,17 @@ import lesExceptions.QuitterException;
 import lesExceptions.ValInexistanteException;
 
 public class GrilleTaquin extends Grille{
-	
+	/** Ligne sur laquelle se situe le 0 */
 	private int l0;
+	/** Colonne sur laquelle se situe le 0 */
 	private int c0;
 	
+	/** Creer une grilleTaquin a partir d'un fichier
+	 * 
+	 * @param file fichier .taq a partir de laquelle creer la Grille
+	 * 
+	 * @author Benoit
+	 */
 	public GrilleTaquin (String file){
 		super(file);
 		try {
@@ -21,6 +28,13 @@ public class GrilleTaquin extends Grille{
 		} catch (ValInexistanteException e) {System.out.println("Fichier taquin non valide");}
 	}
 	
+	/** Creer une grille avec une nombre de lignes et de colonnes definis
+	 * 
+	 * @param ligne nb de lignes sur la grille de Taquin
+	 * @param colonne nb de colonnes sur la grille de Taquin
+	 * 
+	 * @author Jolan
+	 */
 	public GrilleTaquin(int ligne, int colonne) {
 		super(ligne, colonne);
 		this.setL0(ligne-1);
@@ -29,14 +43,19 @@ public class GrilleTaquin extends Grille{
 
 	/** Indique si la le jeu créé ainsi comporte une solution
 	 * 
-	 * @return
+	 * @return vrai si il a une solution, faux sinon
+	 * 
+	 * @author Thibault
 	 */
 	public boolean containsSolution() {
 		return pairiteMvm()==pairVide();
 	}
 
-	/** Creer une copie de 
+	/** Creer une copie de la grille
 	 * 
+	 * @return une grilleTaquin semblable a this
+	 * 
+	 * @author Jolan
 	 */
 	public GrilleTaquin copyOf(){
 		GrilleTaquin gt = new GrilleTaquin (this.getLigne(), this.getColonne());
@@ -54,7 +73,6 @@ public class GrilleTaquin extends Grille{
 	* @return vrai si chaque case a la bonne valeur, faux sinon
 	*
 	* @author Jolan
-	* @since 1.0
 	*/
 	public boolean win (){ //grille au format : [ligne] [colonne]
 		int nb_count = 1; //valeur de comparaison
@@ -77,7 +95,6 @@ public class GrilleTaquin extends Grille{
 	* @return true si le nb de mvm est pair, false sinon
 	*
 	* @author Thibault
-	* @since 1.0
 	*/
 	public boolean pairiteMvm(){
 		int nb_case= this.getLigne()*this.getColonne();
@@ -107,28 +124,24 @@ public class GrilleTaquin extends Grille{
 	}
 
 	/** Indique la parité du nb de mvm a effectuer pour deplacer la case vide a sa position victoire
-	* 
-	* @param grille une grille de jeu carrée
-	* @return 0 si le nb de mvm est pair, 1 sinon
-	*
-	* @author Jolan
-	* @since 1.0
-	*/
+	 * 
+	 * @return 0 si le nb de mvm est pair, 1 sinon
+	 * 
+	 * @author Jolan
+	 */
 	public boolean pairVide(){
 		return (Math.abs(getL0()-this.getLigne()-1) + Math.abs(getC0()-this.getColonne()-1))%2==0;
 	}
 	
-	/** Joue un mouvement 
-	*
-	* @param grille la grille de jeu
-	* @param n la valeur cherchée qui doit etre presente dans grille
-	* @throws MouvementImpossibleException si le mouvement n'est pas possible
-	*
-	* @author Jolan
-	 * @return 
-	* @throws QuitterException 
-	* @since 1.0
-	*/
+	/** Joue un mouvement dans la grille
+	 * 
+	 * @param c le mouvement a effectuer pour la case vide | n:Nord | s:Sud | o:Ouest | e:Est
+	 * @return La grille avec le mouvement effectué
+	 * @throws MouvementImpossibleException si le mouvement est impossible ou n'existe pas
+	 * @throws QuitterException si le joueur souhaite quitter 
+	 * 
+	 * @author Jolan
+	 */
 	public GrilleTaquin playMove(char c) throws MouvementImpossibleException, QuitterException{
 		switch (c){
 			case 'N': case 'n': 
@@ -172,16 +185,16 @@ public class GrilleTaquin extends Grille{
 		return this;
 	}
 	
-	/**Déplacement dans un taquin
-	*	
-	* @param String qui contient une suite de mouvement à effectuer
-	* @throws MouvementImpossibleException si le mouvement n'est pas possible
-	* @throws QuitterException
-	* @author Anthony
-	* @return String
-	* @since 1.1
-	*/
-	
+	/** Effectue une suite de deplacement dans this
+	 * 
+	 * @param s1 un String qui contient une suite de mouvement à effectuer
+	 * @param dynamique un booleen indiquant si on veut un affichage, ou non dynamique
+	 * @return la chaine des caracteres joués
+	 * @throws MouvementImpossibleException
+	 * @throws QuitterException
+	 * 
+	 * @author Anthony
+	 */
 	public String playMove(String s1, boolean dynamique) throws MouvementImpossibleException, QuitterException{
 		String s2 = "";
 		char deplacement;
@@ -200,11 +213,8 @@ public class GrilleTaquin extends Grille{
 	}
 	
 	/** Melange un tableau a deux dimensions
-	*	
-	* @param grille une grille dont on veux melanger les valeurs	
 	*
 	* @author Jolan
-	* @since 1.0
 	*/
 	public void mixTab(){
 		do{
@@ -219,12 +229,11 @@ public class GrilleTaquin extends Grille{
 		
 	}
 	
-	/**
+	/** Calcul la liste des successeurs d'une GrilleTaquin
 	 * 
-	 * @return
+	 * @return une liste de Taquin successeurs de this
 	 * 
 	 * @author Jolan
-	 * @since 1.0 
 	 */
 	public ArrayList<GrilleTaquin> successeur (){
 		ArrayList<GrilleTaquin> lesSucc= new ArrayList<GrilleTaquin> ();
@@ -251,12 +260,12 @@ public class GrilleTaquin extends Grille{
 		return lesSucc;
 	}
 	
-	/**
+	/** Calcul la liste des successeurs d'une GrilleTaquin en se souciant des redondances
 	 * 
-	 * @return
+	 * @param c le dernier parametre joué pour arriver a cette configuration de grille
+	 * @return une liste de Taquin successeurs de this sans retour arriere
 	 * 
 	 * @author Jolan
-	 * @since 1.0 
 	 */
 	public HashMap<GrilleTaquin, Character> successeur (char c){
 		HashMap<GrilleTaquin,Character> lesSucc= new HashMap<GrilleTaquin,Character> ();
@@ -288,63 +297,71 @@ public class GrilleTaquin extends Grille{
 	}
 	
 	
-	/**
+	/**Cree un affichage pour la grille Taquin
+	 *
+	 * @return une chaine contenant les valeurs de la table 
+	 * 
 	 * @author Jolan
-	 * @since 1.1
 	 */
 	public String toString(){
 		String s = super.toString();
 		return s;
 	}
 
-	/**
+	/** Recupere la ligne sur laquelle est située la case 0
 	 * 
-	 * @return
+	 * @return la coordonnée ligne de la case 0
 	 * 
 	 * @author Jolan
-	 * @since 1.0
 	 */
 	public int getL0() {
 		return l0;
 	}
 
-	/**
+	/** Fixe la ligne de la case 0
 	 * 
-	 * @param l0
+	 * @param l0 coordonnee de la ligne 0
 	 * 
 	 * @author Jolan
-	 * @since 1.0
 	 */
 	public void setL0(int l0) {
 		this.l0 = l0;
 	}
 
-	/**
+	/** Recupere la colonne sur laquelle est située la case 0
 	 * 
-	 * @return
+	 * @return la coordonnée colonne de la case 0
 	 * 
 	 * @author Jolan
-	 * @since 1.0
 	 */
 	public int getC0() {
 		return c0;
 	}
 
-	/**
+	/** Fixe la colonne de la case 0
 	 * 
-	 * @param c0
+	 * @param c0 coordonnee de la colonne 0
 	 * 
 	 * @author Jolan
-	 * @since 1.0
 	 */
 	public void setC0(int c0) {
 		this.c0 = c0;
 	}
 	
+	/** Test l'egalite avec une grille Taquin
+	 * 
+	 * @param gt la grille a test avec this
+	 * @return vrai si elle sont egales, faux sinon
+	 * 
+	 * @author Jolan
+	 */
 	public boolean equals (GrilleTaquin gt){
 		return super.equals(gt);
 	}
 
+	/**
+	 * 
+	 */
 	public int compareTo(Grille arg0) {
 		if (this.equals(arg0))
 			return 0;
@@ -352,10 +369,11 @@ public class GrilleTaquin extends Grille{
 			return -1;
 	}
 	
-	/** Permet de fournir la grille de taquin finale d'une grille de taquin mélangée
+	/** Trie une GrilleTaquin
 	 * 
-	 * @param t La grille de taquin à ranger
 	 * @return La grille de taquin correctement rangée
+	 * 
+	 * @author Benoit
 	 */
 	public GrilleTaquin sort(){
 		int l = this.getLigne();
@@ -379,12 +397,13 @@ public class GrilleTaquin extends Grille{
 		return range;
 	}
 	
-	/**
+	/** Compare les coordonnées de la case 0 et retourne le mouvement qui a du etre effectué de this vers gt
 	 * 
-	 * @param t1 Grille de taquin avant mouvement
-	 * @param t2 Grille de taquin après mouvement
+	 * @param gt Grille de taquin apres mouvement
 	 * 
 	 * @return Un caractère correspondant au mouvement effectué par l'utilisateur pour déplacer la case vide
+	 * 
+	 * @author Benoit
 	 */
 	public char compZero(GrilleTaquin gt){
 		if( this.l0 > gt.l0 )
