@@ -5,7 +5,7 @@ import lesExceptions.QuitterException;
 
 import org.junit.Test;
 
-import Taquin.Game;
+import Jeu.Game;
 import Taquin.GrilleTaquin;
 
 /** Tests pour la methode copyOf de la classe GrilleTaquin
@@ -18,7 +18,7 @@ public class test_GrilleTaquin_copyOf {
 	public void testCopyOf1(){ 
 		//test pour verifier la non-liaison des valeurs
 		System.out.println("####################\nTEST 1:");
-		GrilleTaquin grille1 = Game.initGame(2);
+		GrilleTaquin grille1 = Game.initGame(2,2);
 		GrilleTaquin grille2 = grille1.copyOf();
 		System.out.println("\ngrille1:\n"+grille1);
 		System.out.println("\ngrille2:\n"+grille2);
@@ -37,7 +37,7 @@ public class test_GrilleTaquin_copyOf {
 	public void testCopyOf2() throws MouvementImpossibleException, QuitterException{
 		//test pour verifier la non-liaison des variables de coordonnées de la case 0
 		System.out.println("####################\nTEST 2:");
-		GrilleTaquin grille1 = Game.initGame(2);
+		GrilleTaquin grille1 = Game.initGame(2,2);
 		GrilleTaquin grille2 = grille1.copyOf();
 		System.out.println("\ngrille1:\n"+grille1);
 		System.out.println("\ngrille2:\n"+grille2);

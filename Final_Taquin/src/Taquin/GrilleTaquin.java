@@ -32,7 +32,7 @@ public class GrilleTaquin extends Grille{
 	 * 
 	 * @return
 	 */
-	private boolean containsSolution() {
+	public boolean containsSolution() {
 		return pairiteMvm()==pairVide();
 	}
 

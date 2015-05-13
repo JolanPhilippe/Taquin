@@ -2,8 +2,6 @@ package nosStructures;
 
 import java.util.LinkedList;
 
-import Taquin.GrilleTaquin;
-import lesExceptions.ElementInexistantException;
 
 public class Pile<E> implements Structure<E>{
 	LinkedList<E> pile;

@@ -1,7 +1,5 @@
 package nosStructures;
 
-import java.util.HashMap;
-
 import lesExceptions.ElementInexistantException;
 import lesExceptions.ErrorKeyValueException;
 
