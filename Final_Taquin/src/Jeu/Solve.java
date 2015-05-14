@@ -24,12 +24,12 @@ public class Solve {
 	/** Jeu de taquin auquel on veut arriver*/	
 	static GrilleTaquin ref;
 	
-	public static String SolveTaquin(GrilleTaquin gt,int typeRes,int delai){
+	public static Couple<String, Integer> SolveTaquin(GrilleTaquin gt,String typeRes,int delai){
 		ref = gt.sort();
 		try {
-			if(typeRes <= 33) return ResTaquinB(gt, typeRes, delai);
+			return ResTaquinB(gt, typeRes, delai);
 		} catch (ValInexistanteException e) {System.out.println(e.getMessage());}
-		return "";
+		return new Couple<String,Integer>("OVERTIME",0);
 	}
 	
 	/** Resout taquin avec gestion du dernier coup sans graphe annexe
@@ -41,7 +41,7 @@ public class Solve {
 	 * 
 	 * @author Jolan
 	 */
-	public static String ResTaquinB (GrilleTaquin taquin, int typeRes, int delai) throws ValInexistanteException{
+	public static Couple<String, Integer> ResTaquinB (GrilleTaquin taquin, String typeRes, int delai) throws ValInexistanteException{
 		Date d1= new Date();
 		boolean overtime = false;
 		GrilleTaquin ref = taquin.sort();
@@ -49,11 +49,11 @@ public class Solve {
 		Marque = new LinkedList<GrilleTaquin> ();
 		//ATraite = new ValueMinHeap<GrilleTaquin> (values);
 		switch (typeRes){ //Definition de ATraite en fonction du mode de resolution
-			case 1: //pile
+			case "pile": 
 				ATraite = new Pile<GrilleTaquin>(); break;
-			case 2: //file
+			case "file": 
 				ATraite = new File<GrilleTaquin>(); break;
-			case 31: case 32: case 33: //tas (file de priorité)
+			case "manhattan": case "pmanhattan": case "choix": //tas (file de priorité)
 				ATraite = new ValueMinHeap<GrilleTaquin>(values); break;
 			default: 
 				throw new ValInexistanteException("Ce mode de resolution est impossible") ;
@@ -73,13 +73,13 @@ public class Solve {
 					if(!testContains){						
 						CharPred.put(p, pos.compZero(p));
 						switch (typeRes){
-							case 31:
+							case "manhattan":
 								values.add(p,manhattan(p,ref));
 								break;
-							case 32:	
+							case "pmanhattan":	
 								values.add(p,pmanhattan(p,ref,init)); 
 								break;
-							case 33:
+							case "choix":
 								values.add(p,euclide(p,ref)); 
 								break;
 							default: 
@@ -98,11 +98,11 @@ public class Solve {
 		}
 		String sol="";
 		if(overtime){
-			System.out.println("OVERTIME");
+			sol = "OVERTIME";
 		}else{
 			sol = getChemin(ref);
 		}
-		return sol;
+		return new Couple <String,Integer>(sol,Marque.size());
 	}
 	
 	/** 

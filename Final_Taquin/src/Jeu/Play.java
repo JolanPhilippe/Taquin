@@ -21,6 +21,7 @@ public class Play {
 		boolean win=grille.win();
 		int nb_coup=0;
 		boolean continuer = true;
+		System.out.print((char)Event.ESCAPE + "7");
 		while (!win && continuer){
 			String str = sc.next();
 			char selected = str.charAt(0);

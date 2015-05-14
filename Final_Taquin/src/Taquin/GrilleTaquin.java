@@ -195,18 +195,24 @@ public class GrilleTaquin extends Grille{
 	 * 
 	 * @author Anthony
 	 */
-	public String playMove(String s1, boolean dynamique) throws MouvementImpossibleException, QuitterException{
+	public String playMove(String s1, boolean dynamique, boolean affichage) throws MouvementImpossibleException, QuitterException{
+		GrilleTaquin gt = this.copyOf();
 		String s2 = "";
 		char deplacement;
+		System.out.print((char)Event.ESCAPE + "7");//Commande d'initialisation à l'affichage dynamique
 		for (int i=0; i<s1.length(); i++){
 			GrilleTaquin avant = this.copyOf();
 			deplacement = s1.charAt(i);
-			if(dynamique)
-				System.out.print((char)Event.ESCAPE + "7");//Commande d'initialisation à l'affichage dynamique
-			this.playMove(deplacement);
-			if(dynamique)
+			gt.playMove(deplacement);
+			if(dynamique && affichage){
 				System.out.print((char)Event.ESCAPE + "8");//Commande finale de l'affichage dynamique
-			System.out.println(this);
+				System.out.println(gt);
+				try{
+					Thread.sleep(500);//Timer pour l'affichage Dynamique et pour une résolution en direct
+				}catch(InterruptedException e){}
+			}
+			if(affichage)
+				System.out.println(this);
 			if (!this.equals(avant)){s2=s2+deplacement;}
 		}
 		return s2;

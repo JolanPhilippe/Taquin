@@ -2,36 +2,12 @@ package Outils;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Tools {
 
 	static Scanner sc = new Scanner (System.in);
-
-	/** Fait faire un choix d'un nombre entier a l'utilisateur entre min et max
-	 * 
-	 * @param min entier minimal pouvant etre choisi
-	 * @param max entier maximal pouvant etre choisi
-	 * @return l'entier choisi
-	 * 
-	 * @author Jolan
-	 * @since 1.0
-	 */
-	public static int choiceInt(int min, int max){
-		int n=0;
-		do{
-			try{
-				n = sc.nextInt();
-			}catch (InputMismatchException ime){
-				n=-1;
-			}
-			if(n<min || n>max)
-				System.out.println("Choix impossible");
-		}while (n<min || n>max);
-		return n;
-	}
 	
 	/** Fait faire un choix d'un nombre entier a l'utilisateur entre min et infini
 	 * 
@@ -63,18 +39,21 @@ public class Tools {
 
 	public static String elagage(String s1, int h, int l) {
 		String s2 = s1;
-		int p = 2*h+2*l-5;
-		int min = min(h,l);
+		int p = 2*h+2*l-5;//Calcul du périmètre d'un taquin -1
+		int min = min(h,l);//Prise du minimum entre la hauteur et la largeur
 		for(int i=1; i<h; i++){
-			s2= s2.replaceAll(multChar("NS",i), "");
-			s2= s2.replaceAll(multChar("SN",i), "");
+			s2= s2.replaceAll(multChar("NS",i), "");//Permet de remplacer toutes les combinaisons de la forme "NS" "NNSS" "NNNSSS"...
+			s2= s2.replaceAll(multChar("SN",i), "");//Idem pour "SN"
 		}
 		for(int j=1; j<l; j++){
-			s2= s2.replaceAll(multChar("OE",j), "");
-			s2= s2.replaceAll(multChar("EO",j), "");
+			s2= s2.replaceAll(multChar("OE",j), "");//Permet de remplacer toutes les combinaisons de la forme "OE" "OOEE" ...
+			s2= s2.replaceAll(multChar("EO",j), "");//Idem pour "EO"
 		}
 		for(int m=1; m<min; m++){
-			s2= s2.replaceAll(multString(multCharString("OSENOSENOSEN",h,l),p),"");
+			/*Les combinaisons suivantes correspondent aux suites de mouvements qui effectuent des tours
+			 *  et qui appliqué n fois reviennent à ne rien bouger sur le jeu de taquin, les lignes suivantes
+			 *  supprimes donc ces combinaisons*/
+			s2= s2.replaceAll(multString(multCharString("OSENOSENOSEN",h,l),p),""); 
 			s2= s2.replaceAll(multString(multCharString("ENOSENOSENOS",h,l),p),"");
 			s2= s2.replaceAll(multString(multCharString("ESONESONESON",h,l),p),"");
 			s2= s2.replaceAll(multString(multCharString("ONESONESONES",h,l),p),"");
@@ -82,6 +61,7 @@ public class Tools {
 			s2= s2.replaceAll(multString(multCharString("NOSENOSENOSE",h,l),p),"");
 			s2= s2.replaceAll(multString(multCharString("SENOSENOSENO",h,l),p),"");
 			s2= s2.replaceAll(multString(multCharString("SONESONESONE",h,l),p),"");
+			/* Les lignes suivantes correspondent à des mouvements de tours qui peuvent et qui sont donc simplifiés */
 			s2= s2.replaceAll(multCharString("ONESONES",h,l),multCharString("NOSE",h,l));
 			s2= s2.replaceAll(multCharString("NOSENOSE",h,l),multCharString("ONES",h,l));
 			s2= s2.replaceAll(multCharString("NESONESO",h,l),multCharString("ENOS",h,l));
@@ -94,7 +74,7 @@ public class Tools {
 			l--;
 		}
 		if(!s1.equals(s2)) {
-			return elagage(s2, h, l);
+			return elagage(s2, h, l);//Rappel récursive de la fonction d'élagage tant que l'élagage supprime des combinaisons inutiles
 		}else{
 			return s2;
 		}
@@ -187,6 +167,8 @@ public class Tools {
 	 * @param tab Treemap
 	 * @author Jolan
 	 */
+	
+	
 	public static void toHtml(TreeMap<String, String> tab){
 		String html = "<html lang=\"fr\" xml:lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\">\n"
 				+ "<head>\n"
