@@ -20,16 +20,6 @@ public class  BinaryHeap<E> implements Structure<E>, Heap<E>  {
 	public BinaryHeap() {
 		this.tas = new ArrayList<E>();
 	}
-	
-	/** Construit un tas a partir d'un tas deja existant
-	 * 
-	 * @param tas un tableau representant un tas binaire deja existant
-	 * 
-	 * @author Jolan
-	 */
-	public BinaryHeap(ArrayList<E> tas) {
-		this.tas = tas;
-	}
 
 	/** Donne la taille du tas (le nb d'element dans le tas)
 	 * 

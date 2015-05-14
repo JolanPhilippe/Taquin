@@ -84,7 +84,7 @@ public class ValueMinHeap<E> extends BinaryHeap<E> {
 		} catch (ElementInexistantException e1) {}
 		try {
 			E fils = getElem(iFils); 
-			while(getValue().get(e)>getValue().get(fils)){
+			while(value.get(e)>value.get(fils)){
 				tas.set(iFils, e);
 				tas.set(iE, fils);
 				iE = tas.indexOf(e);
@@ -111,7 +111,7 @@ public class ValueMinHeap<E> extends BinaryHeap<E> {
 			int iPere = (iE+1)/2-1;
 			try {
 				E pere =getElem(iPere);
-				while(getValue().get(e)<getValue().get(pere)){
+				while(value.get(e)<value.get(pere)){
 					tas.set(iPere, e);
 					tas.set(iE, pere);
 					iE = tas.indexOf(e);
@@ -124,15 +124,6 @@ public class ValueMinHeap<E> extends BinaryHeap<E> {
 		}
 	}
 
-	/** Recupere la fonction value
-	 * 
-	 * @return la Map value (E - Integer)
-	 * 
-	 * @author Jolan
-	 */
-	public Value<E> getValue() {
-		return value;
-	}
 
 	/** Fixe la fonction value par une map deja existante
 	 * 
