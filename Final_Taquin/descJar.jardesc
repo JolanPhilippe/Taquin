@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="C:/Users/Jolan/Desktop/taquin.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Final_Taquin/descJar.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=Final_Taquin/src&lt;Jeu{Main.java[Main" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <file path="/Final_Taquin/.classpath"/>
+        <folder path="/Final_Taquin/TRAVAUX EXPERIMENTAUX"/>
+        <file path="/Final_Taquin/.gitignore"/>
+        <folder path="/Final_Taquin/doc"/>
+        <file path="/Final_Taquin/.project"/>
+        <file path="/Final_Taquin/style.css"/>
+        <file path="/Final_Taquin/Stats.html"/>
+        <javaElement handleIdentifier="=Final_Taquin/src"/>
+    </selectedElements>
+</jardesc>

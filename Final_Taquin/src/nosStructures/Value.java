@@ -4,7 +4,6 @@ import java.util.HashMap;
 public class Value <E>{
 	private HashMap<E, Double> value;
 	
-	
 	public Value() {
 		value = new HashMap<E,Double>();
 	}
